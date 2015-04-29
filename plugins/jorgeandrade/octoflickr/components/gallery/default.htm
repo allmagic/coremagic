@@ -1,0 +1,25 @@
+Example:
+
+<h2>{{gallery.nombre}}</h2>
+{% for row in images|batch(gallery.columns) %}
+<div class="row">
+	{% for image in row %}
+	<div class="col-xs-6 col-md-{{columns}}">
+        <div class="thumbnail">
+			<a href="{{image.url}}" data-title="{{image.title}}" data-lightbox="roadtrip"><img src="{{image.url}}"  alt="">
+			</a>
+              <div class="caption">
+              	{% if gallery.titles %}
+                <h4>{{image.title}}</h4>
+                {% endif %}
+
+              	{% if gallery.descriptions %}
+                <p>{{image.description|striptags}}</p>
+                {% endif %}
+                <p><strong>Author:</strong> {{image.author}}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endfor %}

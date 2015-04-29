@@ -1,0 +1,23 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    id:
+        label: ID
+        searchable: true
+    title:
+        label: title
+        searchable: true
+    author:
+        label: author
+        searchable: true
+    url:
+        label: Url to Image
+        searchable: true
+    gallerie:
+        type: relation
+        label: Gallery
+        relation: gallerie
+        searchable: true
+        select: nombre

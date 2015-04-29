@@ -1,0 +1,219 @@
+.thumbnail{
+	word-wrap:break-word;
+	min-height: 400px;
+	max-height: 400px;
+}
+
+.octoflickr .thumbnail .active-image{
+	height: 250px;
+}
+
+.relative{
+	position: relative;
+	display: inline-block;
+
+}
+
+.absolute{
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+}
+
+
+.octoflickr ul {
+  padding: 0;
+  margin: 0;
+}
+
+.octoflickr ul li{
+  display: list-item;
+  text-align: -webkit-match-parent;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  height: 200px;
+  width: 200px;
+  list-style: none;
+  float: left;
+}
+
+
+.octoflickr .attachment-input {
+  position: absolute;
+  visibility: hidden;
+  width: 10px;
+  opacity: 0;
+}
+.octoflickr .attachment-item {
+  position: relative;
+  height: 100%;
+}
+.octoflickr .file-multi .attachment-item,
+.octoflickr .file-single.attachment-item {
+  width: 100px;
+  height: 100px;
+}
+.octoflickr .active-image,
+.octoflickr .active-file {
+  display: block;
+  height: 100%;
+  width: 100%;
+  border: 1px solid #e0e0e0;
+  background: white;
+  position: relative;
+  outline: none;
+  overflow: hidden;
+  padding: 5px;
+}
+.octoflickr .active-image .caption,
+.octoflickr .active-file .caption {
+  position: absolute;
+  bottom: 0;
+  font-size: 11px;
+  background: rgba(0, 0, 0, 0.05);
+  color: #999;
+  padding: 2px 5px;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.octoflickr .active-image img {
+  width: 100%;
+  height: 100%;
+}
+.octoflickr .active-file {
+  padding: 0;
+}
+.octoflickr .active-file .file-icon {
+  position: absolute;
+  top: 7px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+.octoflickr .active-file .file-icon i {
+  font-size: 64px;
+  color: #444;
+}
+.octoflickr .active-file .file-icon b {
+  position: absolute;
+  left: 0;
+  bottom: 10px;
+  color: #FFF;
+  display: block;
+  width: 100%;
+  font-size: 12px;
+  font-weight: normal;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: center;
+  text-indent: 12px;
+}
+.octoflickr .uploader-toolbar {
+  -webkit-transition: opacity 0.2s;
+  transition: opacity 0.2s;
+  height: 100%;
+  background: #e0e0e0;
+  position: absolute;
+  top: 0;
+  right: -20px;
+  width: 20px;
+}
+.octoflickr .uploader-toolbar h3,
+.octoflickr .uploader-toolbar p {
+  display: none;
+}
+.octoflickr .uploader-toolbar a {
+  text-decoration: none;
+  display: block;
+  padding: 3px 0 0 7px;
+  color: #999;
+  font-size: 15px;
+  margin-left: -4px;
+  text-align: center;
+}
+.octoflickr .uploader-toolbar a:hover {
+  color: #666;
+}
+.octoflickr .uploader-toolbar a.uploader-file-link {
+  display: none;
+}
+
+html:not(.touch) .octoflickr .attachment-item .uploader-toolbar {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+html:not(.touch) .octoflickr .attachment-item .uploader-toolbar a {
+  display: inline-block;
+  text-align: left;
+  padding: 0 0 5px 6px;
+  font-size: 16px;
+  color: #808b93;
+  margin-left: 5px;
+}
+html:not(.touch) .octoflickr .attachment-item .uploader-toolbar a:before {
+  margin-right: 0;
+}
+html:not(.touch) .octoflickr .attachment-item .uploader-toolbar a:hover {
+  color: #0181b9;
+}
+html:not(.touch) .octoflickr .attachment-item .uploader-toolbar a.uploader-remove {
+  position: absolute;
+  right: 5px;
+  top: 1px;
+  font-size: 13px;
+}
+html:not(.touch) .octoflickr .attachment-item .uploader-toolbar a.uploader-remove:hover {
+  color: #c73f26;
+}
+html:not(.touch) .octoflickr .attachment-item .uploader-toolbar a.uploader-config,
+html:not(.touch) .octoflickr .attachment-item .uploader-toolbar a.uploader-file-link {
+  display: inline-block;
+}
+html:not(.touch) .octoflickr .attachment-item .uploader-toolbar div.controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+html:not(.touch) .octoflickr .attachment-item .uploader-toolbar h3,
+html:not(.touch) .octoflickr .attachment-item .uploader-toolbar p {
+  display: block;
+  padding: 15px 13px 0;
+  color: #7e8c8d;
+  margin-top: 0;
+  line-height: 140%;
+}
+html:not(.touch) .octoflickr .attachment-item .uploader-toolbar h3 {
+  word-wrap: break-word;
+  font-weight: 700;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+html:not(.touch) .octoflickr .attachment-item .uploader-toolbar p {
+  font-size: 11px;
+  padding-top: 0;
+  white-space: normal;
+  position: absolute;
+  top: 35px;
+  bottom: 20px;
+  width: 100%;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+html:not(.touch) .octoflickr .attachment-item .uploader-toolbar p abbr {
+  border-bottom: none;
+}
+html:not(.touch) .octoflickr .attachment-item:hover .uploader-toolbar {
+  opacity: 1;
+  filter: alpha(opacity=100);
+}

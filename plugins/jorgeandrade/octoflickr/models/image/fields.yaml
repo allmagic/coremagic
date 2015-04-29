@@ -1,0 +1,16 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    gallerie:
+        label: Gallery
+        type: relation
+        nameFrom: nombre
+        span: left
+    search:
+        label: Search 
+        placeholder: Search by tags
+        comment: Press enter for search
+        type: text
+        span: right

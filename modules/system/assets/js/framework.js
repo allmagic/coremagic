@@ -14,7 +14,6 @@ if (window.jQuery === undefined)
     var Request = function (element, handler, options) {
         var $el = this.$el = $(element);
         this.options = options || {};
-
         /*
          * Validate handler name
          */
@@ -24,13 +23,6 @@ if (window.jQuery === undefined)
 
         if (!handler.match(/^(?:\w+\:{2})?on*/))
             throw new Error('Invalid handler name. The correct handler name format is: "onEvent".')
-
-        /*
-         * Detect if page is refreshed to stop any active ajax errors
-         */
-
-        var isUnloading = false
-        $(window).on('beforeunload', function() { isUnloading = true })
 
         /*
          * Custom function, requests confirmation from the user
@@ -59,6 +51,10 @@ if (window.jQuery === undefined)
         if (options.confirm && !handleConfirmMessage(options.confirm))
             return
 
+        /*
+         * Prepare the options and execute the request
+         */
+
         var
             form = $el.closest('form'),
             context = { handler: handler, options: options },
@@ -71,7 +67,7 @@ if (window.jQuery === undefined)
 
         var data = [form.serialize()]
 
-        $.each($el.parents('[data-request-data]').toArray().reverse(), function(){
+        $.each($el.parents('[data-request-data]').toArray().reverse(), function extendReque(){
             data.push($.param(paramToObj('data-request-data', $(this).data('request-data'))))
         })
 
@@ -95,7 +91,7 @@ if (window.jQuery === undefined)
                  * Halt here if beforeUpdate() or data-request-before-update returns false
                  */
                 if (this.options.beforeUpdate.apply(this, [data, textStatus, jqXHR]) === false) return
-                if (options.evalBeforeUpdate && eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalBeforeUpdate+'}($el, context, data, textStatus, jqXHR))') === false) return
+                if (options.evalBeforeUpdate && eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalBeforeUpdate+'}.call($el.get(0), $el, context, data, textStatus, jqXHR))') === false) return
 
                 /*
                  * Trigger 'ajaxBeforeUpdate' on the form, halt if event.preventDefault() is called
@@ -111,7 +107,7 @@ if (window.jQuery === undefined)
 
                 updatePromise.done(function(){
                     form.trigger('ajaxSuccess', [context, data, textStatus, jqXHR])
-                    options.evalSuccess && eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalSuccess+'}($el, context, data, textStatus, jqXHR))')
+                    options.evalSuccess && eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalSuccess+'}.call($el.get(0), $el, context, data, textStatus, jqXHR))')
                 })
 
                 return updatePromise
@@ -120,7 +116,7 @@ if (window.jQuery === undefined)
                 var errorMsg,
                     updatePromise = $.Deferred()
 
-                if (isUnloading)
+                if ((window.ocUnloading !== undefined && window.ocUnloading) || errorThrown == 'abort')
                     return
 
                 /*
@@ -158,13 +154,17 @@ if (window.jQuery === undefined)
                     /*
                      * Halt here if the data-request-error attribute returns false
                      */
-                    if (options.evalError && eval('(function($el, context, textStatus, jqXHR) {'+options.evalError+'}($el, context, textStatus, jqXHR))') === false)
+                    if (options.evalError && eval('(function($el, context, textStatus, jqXHR) {'+options.evalError+'}.call($el.get(0), $el, context, textStatus, jqXHR))') === false)
                         return
 
                     requestOptions.handleErrorMessage(errorMsg)
                 })
 
                 return updatePromise
+            },
+            complete: function(data, textStatus, jqXHR) {
+                form.trigger('ajaxComplete', [context, data, textStatus, jqXHR])
+                options.evalComplete && eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalComplete+'}.call($el.get(0), $el, context, data, textStatus, jqXHR))')
             },
 
             /*
@@ -189,7 +189,7 @@ if (window.jQuery === undefined)
                 var updatePromise = $.Deferred().done(function(){
                     for (var partial in data) {
                         /*
-                         * If a partial has been supplied on the client side that matches the server supplied key, look up 
+                         * If a partial has been supplied on the client side that matches the server supplied key, look up
                          * it's selector and use that. If not, we assume it is an explicit selector reference.
                          */
                         var selector = (options.update[partial]) ? options.update[partial] : partial
@@ -227,7 +227,7 @@ if (window.jQuery === undefined)
                  */
                 if (data['X_OCTOBER_ERROR_FIELDS']) {
                     var isFirstInvalidField = true
-                    $.each(data['X_OCTOBER_ERROR_FIELDS'], function(fieldName, fieldMessages){
+                    $.each(data['X_OCTOBER_ERROR_FIELDS'], function focusErrorField(fieldName, fieldMessages){
                         var fieldElement = form.find('[name="'+fieldName+'"], [name="'+fieldName+'[]"], [name$="['+fieldName+']"], [name$="['+fieldName+'][]"]').filter(':enabled').first()
                         if (fieldElement.length > 0) {
 
@@ -246,7 +246,7 @@ if (window.jQuery === undefined)
                  * Handle asset injection
                  */
                  if (data['X_OCTOBER_ASSETS']) {
-                    assetManager.load(data['X_OCTOBER_ASSETS'], function(){
+                    assetManager.load(data['X_OCTOBER_ASSETS'], function assetsLoaded(){
                         updatePromise.resolve()
                     })
                  }
@@ -262,6 +262,7 @@ if (window.jQuery === undefined)
          */
         context.success = requestOptions.success
         context.error = requestOptions.error
+        context.complete = requestOptions.complete
         requestOptions = $.extend(requestOptions, options)
 
         requestOptions.data = data.join('&')
@@ -294,7 +295,8 @@ if (window.jQuery === undefined)
         beforeUpdate: function(data, textStatus, jqXHR) {},
         evalBeforeUpdate: null,
         evalSuccess: null,
-        evalError: null
+        evalError: null,
+        evalComplete: null,
     }
 
     /*
@@ -322,6 +324,7 @@ if (window.jQuery === undefined)
             evalBeforeUpdate: $this.data('request-before-update'),
             evalSuccess: $this.data('request-success'),
             evalError: $this.data('request-error'),
+            evalComplete: $this.data('request-complete'),
             confirm: $this.data('request-confirm'),
             redirect: $this.data('request-redirect'),
             loading: $this.data('request-loading'),
@@ -362,16 +365,16 @@ if (window.jQuery === undefined)
         }
     }
 
-    $(document).on('change', 'select[data-request], input[type=radio][data-request], input[type=checkbox][data-request]', function(){
+    $(document).on('change', 'select[data-request], input[type=radio][data-request], input[type=checkbox][data-request]', function documentOnChange(){
         $(this).request()
     })
 
-    $(document).on('click', 'a[data-request], button[data-request], input[type=button][data-request], input[type=submit][data-request]', function(){
+    $(document).on('click', 'a[data-request], button[data-request], input[type=button][data-request], input[type=submit][data-request]', function documentOnClick(){
         $(this).request()
         return false
     })
 
-    $(document).on('keydown', 'input[type=text][data-request], input[type=submit][data-request], input[type=password][data-request]', function(e){
+    $(document).on('keydown', 'input[type=text][data-request], input[type=submit][data-request], input[type=password][data-request]', function documentOnKeydown(e){
         if (e.keyCode == 13) {
             if (this.dataTrackInputTimer !== undefined)
                 window.clearTimeout(this.dataTrackInputTimer)
@@ -381,7 +384,7 @@ if (window.jQuery === undefined)
         }
     })
 
-    $(document).on('keyup', 'input[type=text][data-request][data-track-input], input[type=password][data-request][data-track-input]', function(e){
+    $(document).on('keyup', 'input[type=text][data-request][data-track-input], input[type=password][data-request][data-track-input], input[type=number][data-request][data-track-input]', function documentOnKeyup(e){
         var
             $el = $(this),
             lastValue = $el.data('oc.lastvalue')
@@ -404,23 +407,27 @@ if (window.jQuery === undefined)
         }, interval)
     })
 
-    $(document).on('submit', '[data-request]', function(){
+    $(document).on('submit', '[data-request]', function documentOnsubmit(){
         $(this).request()
         return false
     })
 
+    $(window).on('beforeunload', function documentOnBeforeunload() {
+        window.ocUnloading = true
+    })
+
     /*
      * Invent our own event that unifies document.ready with window.ajaxUpdateComplete
-     * 
+     *
      * $(document).render(function() { })
      * $(document).on('render', function(){ })
      */
 
-    $(document).ready(function(){
+    $(document).ready(function triggerRenderOnReady(){
         $(document).trigger('render')
     })
 
-    $(window).on('ajaxUpdateComplete', function() {
+    $(window).on('ajaxUpdateComplete', function triggerRenderOnAjaxUpdateComplete() {
         $(document).trigger('render')
     })
 

@@ -550,6 +550,7 @@ class RelationController extends ControllerBehavior
             $config->defaultSort = $this->getConfig('view[defaultSort]');
             $config->recordsPerPage = $this->getConfig('view[recordsPerPage]');
             $config->showCheckboxes = $this->getConfig('view[showCheckboxes]', !$this->readOnly);
+            $config->recordUrl = $this->getConfig('view[recordUrl]', null);
 
             $defaultOnClick = sprintf(
                 "$.oc.relationBehavior.clickViewListRecord(':id', '%s', '%s')",
@@ -557,8 +558,17 @@ class RelationController extends ControllerBehavior
                 $this->relationGetSessionKey()
             );
 
+            if ($config->recordUrl) {
+                $defaultOnClick = null;
+            }
+            elseif (
+                !$this->makeConfigForMode('manage', 'form', false) &&
+                !$this->makeConfigForMode('pivot', 'form', false)
+            ) {
+                $defaultOnClick = null;
+            }
+
             $config->recordOnClick = $this->getConfig('view[recordOnClick]', $defaultOnClick);
-            $config->recordUrl = $this->getConfig('view[recordUrl]', null);
 
             if ($emptyMessage = $this->getConfig('emptyMessage')) {
                 $config->noRecordsMessage = $emptyMessage;
@@ -894,7 +904,7 @@ class RelationController extends ControllerBehavior
         $saveData = $this->manageWidget->getSaveData();
 
         if ($this->viewMode == 'multi') {
-            $model = $this->relationObject->find($this->manageId);
+            $model = $this->relationModel->find($this->manageId);
             $model->save($saveData, $this->manageWidget->getSessionKey());
         }
         elseif ($this->viewMode == 'single') {
@@ -1075,25 +1085,24 @@ class RelationController extends ControllerBehavior
     {
         $this->beforeAjax();
 
-        foreach ((array) $this->foreignId as $foreignId) {
+        /*
+         * Add the checked IDs to the pivot table
+         */
+        $foreignIds = (array) $this->foreignId;
+        $this->relationObject->sync($foreignIds, false);
 
-            /*
-             * Check for existing relation
-             */
-            $foreignKeyName = $this->relationModel->getQualifiedKeyName();
-            $existing = $this->relationObject->where($foreignKeyName, $foreignId)->count();
+        /*
+         * Save data to models
+         */
+        $foreignKeyName = $this->relationModel->getQualifiedKeyName();
+        $hyrdatedModels = $this->relationObject->whereIn($foreignKeyName, $foreignIds)->get();
+        $saveData = $this->pivotWidget->getSaveData();
 
-            if (!$existing) {
-                /*
-                 * Add related model to the parent model
-                 */
-                $saveData = $this->pivotWidget->getSaveData();
-                $pivotData = array_get($saveData, 'pivot', []);
-
-                $foreignModel = $this->relationModel->find($foreignId);
-                $this->relationObject->add($foreignModel, null, $pivotData);
+        foreach ($hyrdatedModels as $hydratedModel) {
+            $modelsToSave = $this->prepareModelsToSave($hydratedModel, $saveData);
+            foreach ($modelsToSave as $modelToSave) {
+                $modelToSave->save();
             }
-
         }
 
         return ['#'.$this->relationGetId('view') => $this->relationRenderView()];
@@ -1264,7 +1273,7 @@ class RelationController extends ControllerBehavior
      * Returns the configuration for a mode (view, manage, pivot) for an
      * expected type (list, form). Uses fallback configuration.
      */
-    protected function makeConfigForMode($mode = 'view', $type = 'list')
+    protected function makeConfigForMode($mode = 'view', $type = 'list', $throwException = true)
     {
         $config = null;
 
@@ -1290,12 +1299,16 @@ class RelationController extends ControllerBehavior
          * - view.list => manage.list
          */
         if (!$config) {
-
             if ($mode == 'manage' && $type == 'list') {
                 return $this->makeConfigForMode('view', $type);
             }
 
-            throw new ApplicationException('Missing configuration for '.$mode.'.'.$type.' in RelationController definition '.$this->field);
+            if ($throwException) {
+                throw new ApplicationException('Missing configuration for '.$mode.'.'.$type.' in RelationController definition '.$this->field);
+            }
+            else {
+                return false;
+            }
         }
 
         return $this->makeConfig($config);

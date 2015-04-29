@@ -1,0 +1,10 @@
+framework: jasmine
+src_files:
+	- assets/coffee/**/*.coffee
+serve_files:
+    - assets/js/*.js
+    - assets/js/**/*Test.js
+before_tests: coffee --output assets/js -c assets/coffee/*.coffee 
+launch_in_dev: 
+	- chrome
+on_exit: rm assets/js/*Test.js

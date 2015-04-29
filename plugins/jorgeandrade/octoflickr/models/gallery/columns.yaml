@@ -1,0 +1,39 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    id:
+        label: ID
+        searchable: true
+    nombre:
+        label: Name
+        searchable: true
+    clave:
+        label: Key
+        searchable: true
+    tags:
+        label: Tags
+        searchable: true
+    titles:
+        label: Photo titles
+        searchable: true
+        invisible: true
+        type: switch
+    descriptions:
+        label: Photo descriptions
+        searchable: true
+        invisible: true
+        type: switch
+    pagination:
+        label: Enable pagination
+        searchable: true
+        invisible: true
+        type: switch
+    perPage:
+        label: Photos per page
+        searchable: true
+        invisible: true
+    columns:
+        label: Number of columns
+        searchable: true

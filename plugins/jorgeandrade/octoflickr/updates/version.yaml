@@ -1,0 +1,4 @@
+1.0.1:
+    - First version of OctoFlickr
+    - create_galleries_table.php
+    - create_images_table.php

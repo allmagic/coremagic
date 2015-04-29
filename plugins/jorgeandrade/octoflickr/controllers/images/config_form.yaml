@@ -1,0 +1,27 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Image
+
+# Model Form Field configuration
+form: $/jorgeandrade/octoflickr/models/image/fields.yaml
+
+# Model Class name
+modelClass: JorgeAndrade\OctoFlickr\Models\Image
+
+# Default redirect location
+defaultRedirect: jorgeandrade/octoflickr/images
+
+# Create page
+create:
+    title: Add Image to gallery
+    redirect: jorgeandrade/octoflickr/images/update/:id
+    redirectClose: jorgeandrade/octoflickr/images
+
+# Update page
+update:
+    title: Edit Image
+    redirect: jorgeandrade/octoflickr/images
+    redirectClose: jorgeandrade/octoflickr/images

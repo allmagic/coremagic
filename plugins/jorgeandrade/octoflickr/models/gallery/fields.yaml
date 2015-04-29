@@ -1,0 +1,47 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    nombre:
+        label: Name
+        comment: A name for the gallery
+        span: left
+        required: true
+        attributes:
+            data-id: name-field
+    clave:
+        label: Key
+        comment: A unique key for identifier the gallery
+        span: right
+        required: true
+        attributes:
+            data-id: key-field
+    tags:
+        label: Tags
+        comment: List of tags separates by comma this will be used for searching in flickr
+    titles:
+        label: Photo titles
+        comment: Show the title of photos
+        type: checkbox
+        default: true
+    descriptions:
+        label: Photo descriptions
+        comment: Show the descriptions of photos
+        type: checkbox
+        default: true
+    pagination:
+        label: Enable pagination
+        type: checkbox
+        default: true
+    perPage:
+        label: Photos per page
+        comment: Number of photos for display per page
+        span: left
+        default: 10
+    columns:
+        label: Number of columns
+        comment: Number of columns for display photos per row
+        span: right
+        default: 4
+        required: true
