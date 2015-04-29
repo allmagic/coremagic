@@ -1,0 +1,5 @@
+1.0.1: First version of storemagic
+1.0.2:
+    - Created apps & links table
+    - create_apps_table.php
+    - create_links_table.php
