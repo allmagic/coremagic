@@ -1,6 +1,7 @@
 <?php namespace Allmagic\Storemagic\Models;
 
 use Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * apps Model

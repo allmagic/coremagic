@@ -24,20 +24,11 @@ class CreateLinksTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-
-        Schema::table('allmagic_storemagic_links', function(Blueprint $table) {
-            $table->foreign('app_id')->references('id')->on('apps')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
-        });
     }
 
     public function down()
     {
         Schema::dropIfExists('allmagic_storemagic_links');
-        Schema::table('allmagic_storemagic_links', function(Blueprint $table) {
-            $table->dropForeign('links_app_id_foreign');
-        });
     }
 
 }
