@@ -4,14 +4,14 @@ description = "test php"
 hidden = "0"
 ==
 <?php
-use Duminhtam\Istore\Models\Test;
+use Allmagic\Storemagic\Models\Apps;
 
 function onStart()
 {
     $this['dir'] = getcwd();
     $this['post_id'] = $this->param('post_id');
-    
-    $this['posts'] = Test::all()->toArray();
+
+    $this['posts'] = Apps::all()->toArray();
 
 }
 ?>
