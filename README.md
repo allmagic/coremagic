@@ -19,6 +19,7 @@ Instructions on how to install October can be found at the [installation guide](
 ### Development Team
 
 October was created by [Alexey Bobkov](http://ca.linkedin.com/pub/aleksey-bobkov/2b/ba0/232) and [Samuel Georges](http://au.linkedin.com/pub/sam-georges/31/641/a9), who both continue to develop the platform.
+Core Magic was created by **All Magic Team**
 
 ### Coding standards
 
