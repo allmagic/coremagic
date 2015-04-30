@@ -1,0 +1,71 @@
+title = "submit app"
+url = "/submit_app"
+layout = "default"
+description = "submit app"
+hidden = "0"
+==
+<?php
+use Allmagic\Storemagic\Models\Apps;
+
+function onTest()
+{
+    $value1 = post('value1');
+    $value2 = post('value2');
+    $this['result'] = $value1 + $value2;
+}
+
+function onStart()
+{
+    $this['dir'] = getcwd();
+    $this['post_id'] = $this->param('post_id');
+
+    $this['posts'] = Apps::all()->toArray();
+
+
+}
+
+function onHandleForm()
+{
+    $this['lastValue'] = post('value');
+    $this['val2'] = post('value2');
+    $this['val3'] = post('value3');
+}
+?>
+==
+post_id: {{ post_id }}
+
+dir: {{ dir }}
+
+
+<ul>
+    {% for post in posts %}
+        <h3>{{ post.id }}</h3>
+        {{ post.trackName }}
+    {% endfor %}
+</ul>
+
+{{ form_open({ request: 'onHandleForm', ee: 'eee' }) }}
+Please enter a string: <input type="text" name="value"/>
+Please enter a string: <input type="text" name="value2"/>
+Please enter a string: <input type="text" name="value3"/>
+<input type="submit" value="Submit me!"/>
+{{ form_close() }}
+<p>Last submitted value: {{ lastValue }}</p>
+<p>Last submitted value2: {{ val2 }}</p>
+<p>Last submitted value3: {{ val3 }}</p>
+
+
+<form data-request="onTest" data-request-update="calcresult: '#result'">
+    <input type="text" name="value1"/>
+    <input type="text" name="value2"/>
+    <input type="submit" value="Calculate">
+</form>
+<div id="result"></div>
+
+
+<script>
+    $('form').request('onDelete', {
+        confirm: 'Are you sure?',
+        redirect: '/dashboard'
+    })
+</script>

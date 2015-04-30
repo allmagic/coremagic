@@ -18,7 +18,7 @@ class Plugin extends PluginBase
         return [
             'name'        => 'storemagic',
             'description' => 'Provide store magic...',
-            'author'      => 'allmagic',
+            'author'      => 'All Magic',
             'icon'        => 'icon-leaf'
         ];
     }
