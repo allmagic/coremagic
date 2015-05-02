@@ -1,0 +1,25 @@
+title = "test fb comment"
+url = "/fb-comment"
+layout = "default"
+hidden = "0"
+
+[facebook_comments_box]
+page_url = "vnmagic.net/s1"
+width = "100%"
+posts_number = "5"
+color = "dark"
+==
+xem phim
+
+{% component 'facebook_comments_box'%}
+
+{#<div class="fb-comments " data-href="facebook.com/vnmagic" data-width="500px" data-numposts="5" data-colorscheme="dark"></div>#}
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/vi/sdk.js#xfbml=1&version=v2.3";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>

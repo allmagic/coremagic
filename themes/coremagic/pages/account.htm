@@ -6,7 +6,20 @@ hidden = "0"
 [account]
 redirect = "store"
 paramCode = "code"
+
+[facebookSession]
+security = "all"
 ==
 <div class="container">
+    
+    {# Loads the facebook SDK #}
+{% component 'facebookSession::fb-sdk' %}
+
+{% if user %}
+    Logged in as {{ user.name }} <a href="#" data-request="facebookSession::onLogout">Logout</a>
+{% else %}
+    {% component 'facebookSession::login-button' %}
+{% endif %}
+    
     {% component 'account' %}
 </div>
