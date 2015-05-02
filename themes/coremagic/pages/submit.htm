@@ -35,42 +35,69 @@ function onHandleForm()
 }
 ?>
 ==
-{% component 'staticMenu' %}
+<div class="container">
 
-post_id: {{ post_id }}
+    <form>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputFile">File input</label>
+            <input type="file" id="exampleInputFile">
+            <p class="help-block">Example block-level help text here.</p>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox"> Check me out
+            </label>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
 
-dir: {{ dir }}
+    post_id: {{ post_id }}
 
-
-<ul>
-    {% for post in posts %}
-        <h3>{{ post.id }}</h3>
-        {{ post.trackName }}
-    {% endfor %}
-</ul>
-
-{{ form_open({ request: 'onHandleForm', ee: 'eee' }) }}
-Please enter a string: <input type="text" name="value"/>
-Please enter a string: <input type="text" name="value2"/>
-Please enter a string: <input type="text" name="value3"/>
-<input type="submit" value="Submit me!"/>
-{{ form_close() }}
-<p>Last submitted value: {{ lastValue }}</p>
-<p>Last submitted value2: {{ val2 }}</p>
-<p>Last submitted value3: {{ val3 }}</p>
-
-
-<form data-request="onTest" data-request-update="calcresult: '#result'">
-    <input type="text" name="value1"/>
-    <input type="text" name="value2"/>
-    <input type="submit" value="Calculate">
-</form>
-<div id="result"></div>
+    dir: {{ dir }}
 
 
-<script>
-    $('form').request('onDelete', {
-        confirm: 'Are you sure?',
-        redirect: '/dashboard'
-    })
-</script>
+    <ul>
+        {% for post in posts %}
+            <h3>{{ post.id }}</h3>
+            {{ post.trackName }}
+        {% endfor %}
+    </ul>
+
+    {{ form_open({ request: 'onHandleForm', ee: 'eee' }) }}
+    Please enter a string: <input type="text" name="value"/>
+    Please enter a string: <input type="text" name="value2"/>
+    Please enter a string: <input type="text" name="value3"/>
+    <input type="submit" value="Submit me!"/>
+    {{ form_close() }}
+    <p>Last submitted value: {{ lastValue }}</p>
+    <p>Last submitted value2: {{ val2 }}</p>
+    <p>Last submitted value3: {{ val3 }}</p>
+
+
+
+    {{ form_ajax('onTest', { class: 'form-horizontal', 'data-request-update': "calcresult: '#result'"}) }}
+        <input type="text" class="form-control" name="value1"/>
+        <input type="text" class="form-control" name="value2"/>
+        <input class="btn btn-default" type="submit" value="Calculate">
+    {{ form_close() }}
+    <div id="result"></div>
+
+
+
+    <script>
+        $(function() {
+            $('form').request('onHandleForm', {
+                confirm: 'Are you sure?',
+                redirect: '/dashboard'
+            })
+        })
+    </script>
+</div>

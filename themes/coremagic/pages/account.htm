@@ -1,8 +1,12 @@
 title = "accounts"
 url = "/accounts"
+layout = "default"
 hidden = "0"
 
 [account]
+redirect = "store"
 paramCode = "code"
 ==
-{% component 'account' %}
+<div class="container">
+    {% component 'account' %}
+</div>

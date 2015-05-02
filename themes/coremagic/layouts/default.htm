@@ -12,7 +12,8 @@ description = "Default layout"
         <link rel="icon" type="image/png" href="{{ 'assets/images/october.png'|theme }}" />
         {% styles %}
         <link href="{{ [
-            'assets/css/theme.css'
+            '@framework.extras',
+            'assets/less/theme.less'
         ]|theme }}" rel="stylesheet">
     </head>
     <body>
@@ -21,7 +22,7 @@ description = "Default layout"
         <header id="layout-header">
 
             <!-- Nav -->
-            <nav id="layout-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <nav id="layout-nav" class="navbar navbar-default navbar-static-top" role="navigation">
                 <div class="container">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
@@ -30,12 +31,12 @@ description = "Default layout"
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="{{ 'home'|page }}">October Demo</a>
+                        <a class="navbar-brand" href="{{ 'home'|page }}">All Magic</a>
                     </div>
                     <div class="collapse navbar-collapse navbar-main-collapse">
                         <ul class="nav navbar-nav">
-                            <li class="{% if this.page.id == 'home' %}active{% endif %}"><a href="{{ 'home'|page }}">Basic concepts</a></li>
-                            <li class="{% if this.page.id == 'ajax' %}active{% endif %}"><a href="{{ 'ajax'|page }}">AJAX framework</a></li>
+                            <li class="{% if this.page.id == 'store' %}active{% endif %}"><a href="{{ 'store'|page }}">Store</a></li>
+                            <li class="{% if this.page.id == 'xem-phim' %}active{% endif %}"><a href="{{ 'xem-phim'|page }}">Xem Phim</a></li>
                             <li class="{% if this.page.id == 'plugins' %}active{% endif %}"><a href="{{ 'plugins'|page }}">Plugin components</a></li>
                         </ul>
                     </div>
@@ -69,9 +70,11 @@ description = "Default layout"
             'assets/vendor/bootstrap/js/scrollspy.js',
             'assets/vendor/bootstrap/js/tab.js',
             'assets/vendor/bootstrap/js/affix.js',
-            'assets/javascript/app.js'
+            'assets/javascript/app.js',
+            '@framework',
+            '@framework.extras'
         ]|theme }}"></script>
-        {% framework extras %}
+        {#{% framework extras %}#}
         {% scripts %}
 
     </body>
