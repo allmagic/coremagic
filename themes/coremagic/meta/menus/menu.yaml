@@ -1,0 +1,17 @@
+name: menu
+items:
+    -
+        title: menu1
+        type: url
+        url: /
+        code: ''
+    -
+        title: menu2
+        type: url
+        url: /
+        code: ''
+    -
+        title: menu3
+        type: url
+        url: /
+        code: ''

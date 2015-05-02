@@ -38,6 +38,8 @@
         this.$fullscreenEnable = this.$toolbar.find('li.fullscreen-enable')
         this.$fullscreenDisable = this.$toolbar.find('li.fullscreen-disable')
 
+        $.oc.foundation.controlUtils.markDisposable(element)
+
         this.init();
     }
 
@@ -107,7 +109,7 @@
         $form.on('oc.beforeRequest', this.proxy(this.onBeforeRequest))
         $(window).on('resize', this.proxy(this.onResize))
         $(window).on('oc.updateUi', this.proxy(this.onResize))
-        this.$el.on('dispose-control', this.proxy(this.dispose))
+        this.$el.one('dispose-control', this.proxy(this.dispose))
 
         /*
          * Set language and theme
@@ -189,14 +191,6 @@
     }
 
     CodeEditor.prototype.dispose = function() {
-        // Currently it's not possible to dispose Ace Editor
-        // completely because of the internal organization of 
-        // because of the internal organization of the class.
-        // The class instance contains multiple references to 
-        // DOM elements in closures and event handlers.
-        // See https://github.com/ajaxorg/ace/issues/2469
-        // --ab 2015-04-23
-
         if (this.$el === null)
             return
 

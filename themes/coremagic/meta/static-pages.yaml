@@ -1,0 +1,3 @@
+static-pages:
+    static_page:
+        static_page-sub_static_page: {  }

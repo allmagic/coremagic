@@ -1,0 +1,29 @@
+title = "new"
+url = "/new/:post_id?"
+description = "test php"
+hidden = "0"
+==
+<?php
+use Allmagic\Storemagic\Models\Apps;
+
+function onStart()
+{
+    $this['dir'] = getcwd();
+    $this['post_id'] = $this->param('post_id');
+
+    $this['posts'] = Apps::all()->toArray();
+
+}
+?>
+==
+post_id: {{ post_id }}
+
+dir: {{ dir }}
+
+
+<ul>
+    {% for post in posts %}
+        <h3>{{ post.id }}</h3>
+        {{ post.name }}
+    {% endfor %}
+</ul>
