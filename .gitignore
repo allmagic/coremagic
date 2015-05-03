@@ -2,6 +2,7 @@
 #/vendor
 composer.lock
 dump.rdb
+.env
 composer.phar
 .DS_Store
 .idea

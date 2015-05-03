@@ -74,6 +74,6 @@ return [
     |
     */
 
-    'prefix' => 'vnmagic',
+    'prefix' => 'vnm',
 
 ];
