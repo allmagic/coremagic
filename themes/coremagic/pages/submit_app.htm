@@ -10,11 +10,15 @@ code = "menu"
 <?php
 use Allmagic\Storemagic\Models\Apps;
 
-function onTest()
+function onSearchAppStore()
 {
-    $value1 = post('value1');
-    $value2 = post('value2');
-    $this['result'] = $value1 + $value2;
+    $app = post('app');
+    (object) $aa = [
+                    "name" => $app,
+                    "desc" => "This is desc",
+                    ];
+    if($app)
+        $this['result'] = $aa;
 }
 
 function onStart()
@@ -71,7 +75,7 @@ function onHandleForm()
         {% endfor %}
     </ul>
 
-    {{ form_open({ request: 'onHandleForm', ee: 'eee' }) }}
+    {{ form_open({ request: 'onHandleFormz', ee: 'eee' }) }}
     Please enter a string: <input type="text" name="value"/>
     Please enter a string: <input type="text" name="value2"/>
     Please enter a string: <input type="text" name="value3"/>
@@ -83,10 +87,9 @@ function onHandleForm()
 
 
 
-    {{ form_ajax('onTest', { class: 'form-horizontal', 'data-request-update': "calcresult: '#result'"}) }}
-        <input type="text" class="form-control" name="value1"/>
-        <input type="text" class="form-control" name="value2"/>
-        <input class="btn btn-default" type="submit" value="Calculate">
+    {{ form_ajax('onSearchAppStore', { class: 'form-horizontal', 'data-request-update': "'store/search_result': '#result'"}) }}
+        <input type="text" class="form-control" name="app"/>
+        <input class="btn btn-default" type="submit" value="Search">
     {{ form_close() }}
     <div id="result"></div>
 

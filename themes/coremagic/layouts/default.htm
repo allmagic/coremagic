@@ -47,6 +47,9 @@ description = "Default layout"
 
         <!-- Content -->
         <section id="layout-content">
+            {% flash %}
+                <div class="alert alert-{{ type }}">{{ message }}</div>
+            {% endflash %}
             {% page %}
         </section>
 

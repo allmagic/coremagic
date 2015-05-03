@@ -1,0 +1,10 @@
+{% if result %}
+    <span class="lead">
+        Name <span class="label label-success">{{ result.name }}</span>
+        Desc <span class="label label-success">{{ result.desc }}</span>
+    </span>
+{% else %}
+    <span class="text-muted">
+        Click the <em>Calculate</em> button to find the answer.
+    </span>
+{% endif %}

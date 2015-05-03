@@ -11,7 +11,7 @@ paramCode = "code"
 security = "all"
 ==
 <div class="container">
-    
+
     {# Loads the facebook SDK #}
 {% component 'facebookSession::fb-sdk' %}
 
@@ -20,6 +20,6 @@ security = "all"
 {% else %}
     {% component 'facebookSession::login-button' %}
 {% endif %}
-    
+
     {% component 'account' %}
 </div>
