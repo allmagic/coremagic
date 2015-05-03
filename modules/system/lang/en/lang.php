@@ -24,6 +24,7 @@ return [
         'se' => 'Swedish',
         'sk' => 'Slovak (Slovakia)',
         'tr' => 'Turkish',
+        'zh-cn' => 'Chinese (China)',
         'nb-no' => 'Norwegian (Bokmål)'
     ],
     'directory' => [
@@ -54,10 +55,19 @@ return [
         ]
     ],
     'theme' => [
+        'unnamed' => 'Unnamed theme',
         'name' => [
             'label' => 'Theme Name',
             'help' => 'Name the theme by its unique code. For example, RainLab.Vanilla'
-        ]
+        ],
+    ],
+    'themes' => [
+        'install' => 'Install themes',
+        'search' => 'search themes to install...',
+        'installed' => 'Installed themes',
+        'no_themes' => 'There are no themes installed from the marketplace.',
+        'recommended' => 'Recommended',
+        'remove_confirm' => 'Are you sure you want to remove this theme?'
     ],
     'plugin' => [
         'unnamed' => 'Unnamed plugin',
@@ -70,12 +80,17 @@ return [
         'manage' => 'Manage plugins',
         'enable_or_disable' => 'Enable or disable',
         'enable_or_disable_title' => 'Enable or Disable Plugins',
+        'install' => 'Install plugins',
+        'search' => 'search plugins to install...',
+        'installed' => 'Installed plugins',
+        'no_plugins' => 'There are no plugins installed from the marketplace.',
+        'recommended' => 'Recommended',
         'remove' => 'Remove',
         'refresh' => 'Refresh',
         'disabled_label' => 'Disabled',
         'disabled_help' => 'Plugins that are disabled are ignored by the application.',
         'selected_amount' => 'Plugins selected: :amount',
-        'remove_confirm' => 'Are you sure?',
+        'remove_confirm' => 'Are you sure you want to remove this plugin?',
         'remove_success' => 'Successfully removed those plugins from the system.',
         'refresh_confirm' => 'Are you sure?',
         'refresh_success' => 'Successfully refreshed those plugins in the system.',
@@ -186,6 +201,7 @@ return [
         'core_downloading' => 'Downloading application files',
         'core_extracting' => 'Unpacking application files',
         'plugins' => 'Plugins',
+        'themes' => 'Themes',
         'disabled' => 'Disabled',
         'plugin_downloading' => 'Downloading plugin: :name',
         'plugin_extracting' => 'Unpacking plugin: :name',
