@@ -96,7 +96,7 @@ return [
     |
     */
 
-    'enableRoutesCache' => false,
+    'enableRoutesCache' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -136,7 +136,7 @@ return [
     |
     */
 
-    'enableAssetCache' => false,
+    'enableAssetCache' => true,
 
     /*
     |--------------------------------------------------------------------------
