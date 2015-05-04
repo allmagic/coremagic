@@ -4,7 +4,6 @@ machine:
 
 dependencies:
   pre:
-    - apt-get update -y php
     - npm install --global shipit-cli
     - npm install --global shipit-deploy
 
