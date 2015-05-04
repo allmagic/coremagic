@@ -9,8 +9,8 @@ before_install:
   - shippable_retry npm install --global shipit-cli
   - shippable_retry npm install --global shipit-deploy
 git:
- submodules: false
-after_success:
+  submodules: false
+install:
   - eval `ssh-agent -s`
   - ssh-add
   - shipit staging deploy
