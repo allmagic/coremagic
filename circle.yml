@@ -1,11 +1,16 @@
 machine:
   php:
     version: 5.6.5
+  environment:
+    MY_PATH: '/home/ubuntu/nvm/v0.10.33/lib/node_modules'
+  services:
+    - mysql
+    - redis
 
 dependencies:
   pre:
-    - npm install --global shipit-cli
-    - npm install --global shipit-deploy
+    - npm install shipit-cli
+    - npm install shipit-deploy
 
 deployment:
   production:
