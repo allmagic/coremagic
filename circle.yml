@@ -8,7 +8,7 @@ machine:
     - redis
 
 dependencies:
-  pre:
+  override:
     - npm install -g shipit-cli
     - npm install shipit-deploy
 
