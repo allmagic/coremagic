@@ -28,5 +28,4 @@ module.exports = function (shipit) {
     shipit.remote('php /usr/share/nginx/html/shipit/current/artisan optimize');
   });
 
-  // RUN chown -R www-data:www-data
 };
