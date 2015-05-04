@@ -12,3 +12,7 @@ deployment:
     branch: master
     commands:
       - shipit staging deploy
+
+tests:
+  override:
+    - echo 'No tests'.
