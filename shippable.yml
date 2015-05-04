@@ -13,5 +13,5 @@ git:
 after_success:
   - eval `ssh-agent -s`
   - ssh-add
-  - cap production deploy
+  - shipit staging deploy
 
