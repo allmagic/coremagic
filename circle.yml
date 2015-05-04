@@ -1,7 +1,7 @@
 dependencies:
   pre:
-    - shippable_retry npm install --global shipit-cli
-    - shippable_retry npm install --global shipit-deploy
+    - npm install --global shipit-cli
+    - npm install --global shipit-deploy
 
 test:
   post:
