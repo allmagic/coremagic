@@ -1,0 +1,17 @@
+# language setting
+language: node_js
+
+# version numbers, testing against two versions of node
+node_js:
+  - 0.10.30
+# npm install runs by default but shown here for illustrative purposes
+before_install:
+  - shippable_retry npm install --global shipit-cli
+  - shippable_retry npm install --global shipit-deploy
+git:
+ submodules: false
+after_success:
+  - eval `ssh-agent -s`
+  - ssh-add
+  - cap production deploy
+
