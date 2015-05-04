@@ -13,6 +13,6 @@ deployment:
     commands:
       - shipit staging deploy
 
-tests:
+test:
   override:
     - echo 'No tests'.
