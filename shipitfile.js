@@ -18,6 +18,9 @@ module.exports = function (shipit) {
 
   shipit.on('updated', function () {
     shipit.remote('chown -R www-data:www-data /root/shipit');
+  });
+
+  shipit.on('published', function () {
     shipit.remote('cp /root/coremagic_config/* /root/shipit/current/config/');
   });
 
