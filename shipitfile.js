@@ -22,6 +22,7 @@ module.exports = function (shipit) {
 
   shipit.on('published', function () {
     shipit.remote('cp /root/coremagic_config/* /root/shipit/current/config/');
+    shipit.remote('chown -R www-data:www-data /root/shipit');
   });
 
   // RUN chown -R www-data:www-data
