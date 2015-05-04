@@ -1,5 +1,6 @@
 dependencies:
   pre:
+    - apt-get install -y nodejs nodejs-dev npm
     - npm install --global shipit-cli
     - npm install --global shipit-deploy
 
