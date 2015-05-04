@@ -9,7 +9,7 @@ machine:
 
 dependencies:
   pre:
-    - npm install shipit-cli
+    - npm install -g shipit-cli
     - npm install shipit-deploy
 
 deployment:
