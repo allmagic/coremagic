@@ -1,8 +1,6 @@
 machine:
   php:
     version: 5.6.3
-  phpunit:
-    version: 4.3.4
 
 dependencies:
   pre:
