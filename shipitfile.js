@@ -4,7 +4,7 @@ module.exports = function (shipit) {
   shipit.initConfig({
     default: {
       workspace: '/tmp/github-monitor',
-      deployTo: '/root/shipit',
+      deployTo: '/usr/share/nginx/html/shipit',
       repositoryUrl: 'git@github.com:allmagic/coremagic.git',
       ignores: ['.git', 'node_modules'],
       rsync: ['--del'],
@@ -17,12 +17,12 @@ module.exports = function (shipit) {
   });
 
   shipit.on('updated', function () {
-    shipit.remote('chown -R www-data:www-data /root/shipit');
+    shipit.remote('chown -R www-data:www-data /usr/share/nginx/html/shipit');
   });
 
   shipit.on('published', function () {
-    shipit.remote('cp /root/coremagic_config/* /root/shipit/current/config/');
-    shipit.remote('chown -R www-data:www-data /root/shipit');
+    shipit.remote('cp /root/coremagic_config/* /usr/share/nginx/html/shipit/current/config/');
+    shipit.remote('chown -R www-data:www-data /usr/share/nginx/html/shipit');
   });
 
   // RUN chown -R www-data:www-data
