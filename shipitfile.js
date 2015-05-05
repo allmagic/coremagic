@@ -17,14 +17,14 @@ module.exports = function (shipit) {
   });
 
   shipit.on('updated', function () {
-    setTimeout(function() {
-      shipit.remote('chown -R www-data:www-data /usr/share/nginx/html/shipit');
-    }, 5000);
+
   });
 
   shipit.on('published', function () {
-    shipit.remote('cp /root/coremagic_config/* /usr/share/nginx/html/shipit/current/config/');
-    shipit.remote('chown -R www-data:www-data /usr/share/nginx/html/shipit');
+    setTimeout(function() {
+      shipit.remote('cp /root/coremagic_config/* /usr/share/nginx/html/shipit/current/config/');
+      shipit.remote('chown -R www-data:www-data /usr/share/nginx/html/shipit');
+    }, 2000);
   });
 
   shipit.on('cleaned', function () {
@@ -33,7 +33,7 @@ module.exports = function (shipit) {
       shipit.remote('php /usr/share/nginx/html/shipit/current/artisan route:clear');
       shipit.remote('php /usr/share/nginx/html/shipit/current/artisan cache:clear');
       shipit.remote('php /usr/share/nginx/html/shipit/current/artisan optimize');
-    }, 5000);
+    }, 2000);
   });
 
 };
