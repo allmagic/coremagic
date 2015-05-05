@@ -11,6 +11,7 @@ dependencies:
   override:
     - npm install -g shipit-cli
     - npm install shipit-deploy
+    - /usr/local/bin/composer self-update
 
 deployment:
   production:
