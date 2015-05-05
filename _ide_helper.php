@@ -1,7 +1,7 @@
 <?php
 /**
  * An helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.0.23 on 2015-04-14.
+ * Generated for Laravel 5.0.28 on 2015-05-05.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -104,6 +104,27 @@ namespace {
          */
         public static function after($callback){
             \October\Rain\Foundation\Application::after($callback);
+        }
+        
+        /**
+         * Determine if we are running in the back-end area.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function runningInBackend(){
+            return \October\Rain\Foundation\Application::runningInBackend();
+        }
+        
+        /**
+         * Sets the execution context
+         *
+         * @param string $context
+         * @return void 
+         * @static 
+         */
+        public static function setExecutionContext($context){
+            \October\Rain\Foundation\Application::setExecutionContext($context);
         }
         
         /**
@@ -232,6 +253,18 @@ namespace {
         public static function databasePath(){
             //Method inherited from \Illuminate\Foundation\Application            
             return \October\Rain\Foundation\Application::databasePath();
+        }
+        
+        /**
+         * Set the database directory.
+         *
+         * @param string $path
+         * @return $this 
+         * @static 
+         */
+        public static function useDatabasePath($path){
+            //Method inherited from \Illuminate\Foundation\Application            
+            return \October\Rain\Foundation\Application::useDatabasePath($path);
         }
         
         /**
@@ -669,6 +702,17 @@ namespace {
         }
         
         /**
+         * Get the application's deferred services.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getDeferredServices(){
+            //Method inherited from \Illuminate\Foundation\Application            
+            return \October\Rain\Foundation\Application::getDeferredServices();
+        }
+        
+        /**
          * Set the application's deferred services.
          *
          * @param array $services
@@ -678,6 +722,18 @@ namespace {
         public static function setDeferredServices($services){
             //Method inherited from \Illuminate\Foundation\Application            
             \October\Rain\Foundation\Application::setDeferredServices($services);
+        }
+        
+        /**
+         * Add an array of services to the application's deferred services.
+         *
+         * @param array $services
+         * @return void 
+         * @static 
+         */
+        public static function addDeferredServices($services){
+            //Method inherited from \Illuminate\Foundation\Application            
+            \October\Rain\Foundation\Application::addDeferredServices($services);
         }
         
         /**
@@ -1688,11 +1744,11 @@ namespace {
          * @static 
          */
         public static function increment($key, $value = 1){
-            return \Illuminate\Cache\FileStore::increment($key, $value);
+            return \Illuminate\Cache\RedisStore::increment($key, $value);
         }
         
         /**
-         * Decrement the value of an item in the cache.
+         * Increment the value of an item in the cache.
          *
          * @param string $key
          * @param mixed $value
@@ -1700,7 +1756,7 @@ namespace {
          * @static 
          */
         public static function decrement($key, $value = 1){
-            return \Illuminate\Cache\FileStore::decrement($key, $value);
+            return \Illuminate\Cache\RedisStore::decrement($key, $value);
         }
         
         /**
@@ -1710,27 +1766,49 @@ namespace {
          * @static 
          */
         public static function flush(){
-            \Illuminate\Cache\FileStore::flush();
+            \Illuminate\Cache\RedisStore::flush();
         }
         
         /**
-         * Get the Filesystem instance.
+         * Begin executing a new tags operation.
          *
-         * @return \Illuminate\Filesystem\Filesystem 
+         * @param array|mixed $names
+         * @return \Illuminate\Cache\RedisTaggedCache 
          * @static 
          */
-        public static function getFilesystem(){
-            return \Illuminate\Cache\FileStore::getFilesystem();
+        public static function tags($names){
+            return \Illuminate\Cache\RedisStore::tags($names);
         }
         
         /**
-         * Get the working directory of the cache.
+         * Get the Redis connection instance.
          *
-         * @return string 
+         * @return \Predis\ClientInterface 
          * @static 
          */
-        public static function getDirectory(){
-            return \Illuminate\Cache\FileStore::getDirectory();
+        public static function connection(){
+            return \Illuminate\Cache\RedisStore::connection();
+        }
+        
+        /**
+         * Set the connection name to be used.
+         *
+         * @param string $connection
+         * @return void 
+         * @static 
+         */
+        public static function setConnection($connection){
+            \Illuminate\Cache\RedisStore::setConnection($connection);
+        }
+        
+        /**
+         * Get the Redis database instance.
+         *
+         * @return \Illuminate\Redis\Database 
+         * @static 
+         */
+        public static function getRedis(){
+            return \Illuminate\Cache\RedisStore::getRedis();
         }
         
         /**
@@ -1740,7 +1818,19 @@ namespace {
          * @static 
          */
         public static function getPrefix(){
-            return \Illuminate\Cache\FileStore::getPrefix();
+            return \Illuminate\Cache\RedisStore::getPrefix();
+        }
+        
+        /**
+         * Begin executing a new tags operation.
+         *
+         * @param string $name
+         * @return \Illuminate\Cache\TaggedCache 
+         * @static 
+         */
+        public static function section($name){
+            //Method inherited from \Illuminate\Cache\TaggableStore            
+            return \Illuminate\Cache\RedisStore::section($name);
         }
         
     }
@@ -3866,7 +3956,7 @@ namespace {
          * Retrieve the minimum value of a given column.
          *
          * @param string $column
-         * @return mixed 
+         * @return float|int 
          * @static 
          */
         public static function min($column){
@@ -3877,7 +3967,7 @@ namespace {
          * Retrieve the maximum value of a given column.
          *
          * @param string $column
-         * @return mixed 
+         * @return float|int 
          * @static 
          */
         public static function max($column){
@@ -3888,7 +3978,7 @@ namespace {
          * Retrieve the sum of the values of a given column.
          *
          * @param string $column
-         * @return mixed 
+         * @return float|int 
          * @static 
          */
         public static function sum($column){
@@ -3899,7 +3989,7 @@ namespace {
          * Retrieve the average of the values of a given column.
          *
          * @param string $column
-         * @return mixed 
+         * @return float|int 
          * @static 
          */
         public static function avg($column){
@@ -3911,7 +4001,7 @@ namespace {
          *
          * @param string $function
          * @param array $columns
-         * @return mixed 
+         * @return float|int 
          * @static 
          */
         public static function aggregate($function, $columns = array()){
@@ -6915,6 +7005,34 @@ namespace {
     }
 
 
+    class Redis extends \Illuminate\Support\Facades\Redis{
+        
+        /**
+         * Get a specific Redis connection instance.
+         *
+         * @param string $name
+         * @return \Predis\ClientInterface 
+         * @static 
+         */
+        public static function connection($name = 'default'){
+            return \Illuminate\Redis\Database::connection($name);
+        }
+        
+        /**
+         * Run a command against the Redis database.
+         *
+         * @param string $method
+         * @param array $parameters
+         * @return mixed 
+         * @static 
+         */
+        public static function command($method, $parameters = array()){
+            return \Illuminate\Redis\Database::command($method, $parameters);
+        }
+        
+    }
+
+
     class Request extends \Illuminate\Support\Facades\Request{
         
         /**
@@ -9237,6 +9355,19 @@ namespace {
         }
         
         /**
+         * Determine if the given table has given columns.
+         *
+         * @param string $table
+         * @param array $columns
+         * @return bool 
+         * @static 
+         */
+        public static function hasColumns($table, $columns){
+            //Method inherited from \Illuminate\Database\Schema\Builder            
+            return \Illuminate\Database\Schema\MySqlBuilder::hasColumns($table, $columns);
+        }
+        
+        /**
          * Modify a table on the schema.
          *
          * @param string $table
@@ -10913,6 +11044,17 @@ namespace {
         }
         
         /**
+         * Check if section exists.
+         *
+         * @param string $name
+         * @return bool 
+         * @static 
+         */
+        public static function hasSection($name){
+            return \Illuminate\View\Factory::hasSection($name);
+        }
+        
+        /**
          * Get the entire array of sections.
          *
          * @return array 
@@ -10968,6 +11110,20 @@ namespace {
          */
         public static function value($name, $value = null){
             return \October\Rain\Html\FormBuilder::value($name, $value);
+        }
+        
+        /**
+         * Create a select box field with empty option support.
+         *
+         * @param string $name
+         * @param array $list
+         * @param string $selected
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function select($name, $list = array(), $selected = null, $options = array()){
+            return \October\Rain\Html\FormBuilder::select($name, $list, $selected, $options);
         }
         
         /**
@@ -11150,21 +11306,6 @@ namespace {
         public static function textarea($name, $value = null, $options = array()){
             //Method inherited from \Illuminate\Html\FormBuilder            
             return \October\Rain\Html\FormBuilder::textarea($name, $value, $options);
-        }
-        
-        /**
-         * Create a select box field.
-         *
-         * @param string $name
-         * @param array $list
-         * @param string $selected
-         * @param array $options
-         * @return string 
-         * @static 
-         */
-        public static function select($name, $list = array(), $selected = null, $options = array()){
-            //Method inherited from \Illuminate\Html\FormBuilder            
-            return \October\Rain\Html\FormBuilder::select($name, $list, $selected, $options);
         }
         
         /**
@@ -11412,6 +11553,41 @@ namespace {
 
 
     class Html extends \Illuminate\Html\HtmlFacade{
+        
+        /**
+         * Removes HTML from a string
+         *
+         * @param $string String to strip HTML from
+         * @return string 
+         * @static 
+         */
+        public static function strip($string){
+            return \October\Rain\Html\HtmlBuilder::strip($string);
+        }
+        
+        /**
+         * Limits HTML with specific length with a proper tag handling.
+         *
+         * @param string $html HTML string to limit
+         * @param int $maxLength String length to truncate at
+         * @param string $end
+         * @return string 
+         * @static 
+         */
+        public static function limit($html, $maxLength, $end = '...'){
+            return \October\Rain\Html\HtmlBuilder::limit($html, $maxLength, $end);
+        }
+        
+        /**
+         * Cleans HTML to prevent most XSS attacks.
+         *
+         * @param string $html HTML
+         * @return string Cleaned HTML
+         * @static 
+         */
+        public static function clean($html){
+            return \October\Rain\Html\HtmlBuilder::clean($html);
+        }
         
         /**
          * Convert an HTML string to entities.
@@ -11673,6 +11849,41 @@ namespace {
 
 
     class HTML extends \Illuminate\Html\HtmlFacade{
+        
+        /**
+         * Removes HTML from a string
+         *
+         * @param $string String to strip HTML from
+         * @return string 
+         * @static 
+         */
+        public static function strip($string){
+            return \October\Rain\Html\HtmlBuilder::strip($string);
+        }
+        
+        /**
+         * Limits HTML with specific length with a proper tag handling.
+         *
+         * @param string $html HTML string to limit
+         * @param int $maxLength String length to truncate at
+         * @param string $end
+         * @return string 
+         * @static 
+         */
+        public static function limit($html, $maxLength, $end = '...'){
+            return \October\Rain\Html\HtmlBuilder::limit($html, $maxLength, $end);
+        }
+        
+        /**
+         * Cleans HTML to prevent most XSS attacks.
+         *
+         * @param string $html HTML
+         * @return string Cleaned HTML
+         * @static 
+         */
+        public static function clean($html){
+            return \October\Rain\Html\HtmlBuilder::clean($html);
+        }
         
         /**
          * Convert an HTML string to entities.
@@ -13865,6 +14076,15 @@ namespace {
 
 
     class Backend extends \Backend\Facades\Backend{
+        
+        /**
+         * Returns the backend URI segment.
+         *
+         * @static 
+         */
+        public static function uri(){
+            return \Backend\Helpers\Backend::uri();
+        }
         
         /**
          * Returns a URL in context of the Backend
