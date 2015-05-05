@@ -26,10 +26,12 @@ module.exports = function (shipit) {
   });
 
   shipit.on('cleaned', function () {
-    shipit.remote('php /usr/share/nginx/html/shipit/current/artisan clear-compiled');
-    shipit.remote('php /usr/share/nginx/html/shipit/current/artisan route:clear');
-    shipit.remote('php /usr/share/nginx/html/shipit/current/artisan cache:clear');
-    shipit.remote('php /usr/share/nginx/html/shipit/current/artisan optimize');
+    setTimeout(function() {
+      shipit.remote('php /usr/share/nginx/html/shipit/current/artisan clear-compiled');
+      shipit.remote('php /usr/share/nginx/html/shipit/current/artisan route:clear');
+      shipit.remote('php /usr/share/nginx/html/shipit/current/artisan cache:clear');
+      shipit.remote('php /usr/share/nginx/html/shipit/current/artisan optimize');
+    }, 5000);
   });
 
 };
