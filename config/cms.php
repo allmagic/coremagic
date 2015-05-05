@@ -136,7 +136,7 @@ return [
     |
     */
 
-    'enableAssetCache' => true,
+    'enableAssetCache' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -150,7 +150,7 @@ return [
     |
     */
 
-    'enableAssetMinify' => true,
+    'enableAssetMinify' => false,
 
     /*
     |--------------------------------------------------------------------------
