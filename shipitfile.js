@@ -17,7 +17,9 @@ module.exports = function (shipit) {
   });
 
   shipit.on('updated', function () {
-    shipit.remote('chown -R www-data:www-data /usr/share/nginx/html/shipit');
+    setTimeout(function() {
+      shipit.remote('chown -R www-data:www-data /usr/share/nginx/html/shipit');
+    }, 5000);
   });
 
   shipit.on('published', function () {
