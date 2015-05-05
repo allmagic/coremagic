@@ -22,5 +22,4 @@ deployment:
 
 test:
   override:
-    - php -d allow_url_fopen=On -d detect_unicode=Off phpunit-4.3.4.phar
-#    - echo 'No tests'.
+    - echo 'No tests'.
