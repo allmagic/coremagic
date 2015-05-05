@@ -32,7 +32,7 @@ module.exports = function (shipit) {
       shipit.remote('php /usr/share/nginx/html/shipit/current/artisan clear-compiled');
       shipit.remote('php /usr/share/nginx/html/shipit/current/artisan route:clear');
       shipit.remote('php /usr/share/nginx/html/shipit/current/artisan cache:clear');
-      shipit.remote('php /usr/share/nginx/html/shipit/current/artisan optimize');
+      shipit.remote('php /usr/share/nginx/html/shipit/current/artisan optimize --force');
     }, 2000);
   });
 
