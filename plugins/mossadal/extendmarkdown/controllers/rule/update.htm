@@ -1,0 +1,60 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('mossadal/extendmarkdown/rule') ?>">
+            <?= e(trans('mossadal.extendmarkdown::lang.rule.rule')) ?>
+        </a></li>
+        <li><?= e($this->pageTitle) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+
+<?php if (!$this->fatalError): ?>
+
+    <?= Form::open(['class'=>'layout']) ?>
+
+        <div class="layout-row">
+            <?= $this->formRender() ?>
+        </div>
+
+        <div class="form-buttons">
+            <div class="loading-indicator-container">
+                <button
+                    type="submit"
+                    data-request="onSave"
+                    data-request-data="redirect:0"
+                    data-hotkey="ctrl+s, cmd+s"
+                    data-load-indicator="<?= e(trans('mossadal.extendmarkdown::lang.rule.saving')) ?>"
+                    class="btn btn-primary">
+                    <?= (trans('mossadal.extendmarkdown::lang.rule.save')) ?>
+                </button>
+                <button
+                    type="button"
+                    data-request="onSave"
+                    data-request-data="close:1"
+                    data-hotkey="ctrl+enter, cmd+enter"
+                    data-load-indicator="<?= e(trans('mossadal.extendmarkdown::lang.rule.saving')) ?>"
+                    class="btn btn-default">
+                    <?= e(trans('mossadal.extendmarkdown::lang.rule.save_and_close')) ?>
+                </button>
+                <button
+                    type="button"
+                    class="oc-icon-trash-o btn-icon danger pull-right"
+                    data-request="onDelete"
+                    data-load-indicator="<?= e(trans('mossadal.extendmarkdown::lang.rule.deleting')) ?>"
+                    data-request-confirm="<?= e(trans('mossadal.extendmarkdown::lang.rule.delete_confirm')) ?>">
+                </button>
+                <span class="btn-text">
+                    or <a href="<?= Backend::url('mossadal/extendmarkdown/rule') ?>">Cancel</a>
+                </span>
+            </div>
+        </div>
+
+    <?= Form::close() ?>
+
+<?php else: ?>
+
+    <p class="flash-message static error"><?= e($this->fatalError) ?></p>
+    <p><a href="<?= Backend::url('mossadal/extendmarkdown/rule') ?>" class="btn btn-default">
+        <?= e(trans('mossadal.extendmarkdown::lang.rule.return_to_list')) ?>
+    </a></p>
+
+<?php endif ?>

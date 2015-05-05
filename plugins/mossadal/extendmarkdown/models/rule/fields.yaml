@@ -1,0 +1,23 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    comment:
+        label: mossadal.extendmarkdown::lang.model.comment
+        type: text
+    start_markdown:
+        label: mossadal.extendmarkdown::lang.model.start_markdown
+        type: text
+    close_markdown:
+        label: mossadal.extendmarkdown::lang.model.close_markdown
+        type: text
+    start_tag:
+        label: mossadal.extendmarkdown::lang.model.start_tag
+        type: text
+    close_tag:
+        label: mossadal.extendmarkdown::lang.model.close_tag
+        type: text
+    is_protected:
+        label: mossadal.extendmarkdown::lang.model.is_protected
+        type: switch

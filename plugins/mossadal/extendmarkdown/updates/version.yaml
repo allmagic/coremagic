@@ -1,0 +1,5 @@
+1.0.1:
+    - Initialize plugin
+    - create_rules_table.php
+    - seed_tables.php
+1.0.2: Rewritten to make use of the markdown.beforeParse and markdown.parse events

@@ -1,0 +1,25 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: mossadal.extendmarkdown::lang.rule.new_rule
+form: $/mossadal/extendmarkdown/models/rule/fields.yaml
+modelClass: Mossadal\ExtendMarkdown\Models\Rule
+defaultRedirect: mossadal/extendmarkdown/rule
+
+# Create page
+create:
+    title: mossadal.extendmarkdown::lang.rule.create_rule
+    redirect: mossadal/extendmarkdown/rule/update/:id
+    redirectClose: mossadal/extendmarkdown/rule
+
+# Update page
+update:
+    title: mossadal.extendmarkdown::lang.rule.update_rule
+    redirect: mossadal/extendmarkdown/rule
+    redirectClose: mossadal/extendmarkdown/rule
+
+# Preview page
+preview:
+    title: mossadal.extendmarkdown::lang.rule.preview_rule
