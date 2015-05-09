@@ -1,0 +1,843 @@
+[
+    {
+        "name": "pda/pheanstalk",
+        "version": "v3.0.2",
+        "version_normalized": "3.0.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/pda/pheanstalk.git",
+            "reference": "2078587884faf43fc00976b152b2dde0b5e3830e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/pda/pheanstalk/zipball/2078587884faf43fc00976b152b2dde0b5e3830e",
+            "reference": "2078587884faf43fc00976b152b2dde0b5e3830e",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~4.0"
+        },
+        "time": "2014-11-08 20:00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Pheanstalk\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Paul Annesley",
+                "email": "paul@annesley.cc",
+                "homepage": "http://paul.annesley.cc/",
+                "role": "Developer"
+            }
+        ],
+        "description": "PHP client for beanstalkd queue",
+        "homepage": "https://github.com/pda/pheanstalk",
+        "keywords": [
+            "beanstalkd"
+        ]
+    },
+    {
+        "name": "iron-io/iron_core",
+        "version": "0.2.2",
+        "version_normalized": "0.2.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/iron-io/iron_core_php.git",
+            "reference": "d5afdccb6aea2ce7c71cf9eedabc81dc3771af19"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/iron-io/iron_core_php/zipball/d5afdccb6aea2ce7c71cf9eedabc81dc3771af19",
+            "reference": "d5afdccb6aea2ce7c71cf9eedabc81dc3771af19",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.2.0"
+        },
+        "time": "2014-11-11 11:18:17",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "IronCore.class.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Alexander S",
+                "email": "alexander@iron.io",
+                "homepage": "http://iron.io",
+                "role": "Developer"
+            },
+            {
+                "name": "Iron.io",
+                "email": "support@iron.io",
+                "homepage": "http://iron.io",
+                "role": "Developer"
+            }
+        ],
+        "description": "Collection of common functions for all iron.io client libraries",
+        "homepage": "http://github.com/iron-io/iron_core_php",
+        "keywords": [
+            "iron",
+            "iron_core"
+        ]
+    },
+    {
+        "name": "iron-io/iron_mq",
+        "version": "1.5.3",
+        "version_normalized": "1.5.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/iron-io/iron_mq_php.git",
+            "reference": "90e796570f61b6e63b44296d7300747c51833b92"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/iron-io/iron_mq_php/zipball/90e796570f61b6e63b44296d7300747c51833b92",
+            "reference": "90e796570f61b6e63b44296d7300747c51833b92",
+            "shasum": ""
+        },
+        "require": {
+            "iron-io/iron_core": "0.*",
+            "php": ">=5.2.0"
+        },
+        "time": "2015-02-12 15:38:54",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "IronMQ.class.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Alexander S",
+                "email": "alexander@iron.io",
+                "homepage": "http://iron.io",
+                "role": "Developer"
+            }
+        ],
+        "description": "Client binding for IronMQ (hosted message queue)",
+        "homepage": "http://github.com/iron-io/iron_mq_php",
+        "keywords": [
+            "MQ",
+            "iron",
+            "iron_mq"
+        ]
+    },
+    {
+        "name": "predis/predis",
+        "version": "v1.0.1",
+        "version_normalized": "1.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/nrk/predis.git",
+            "reference": "7a170b3d8123c556597b4fbdb88631f99de180c2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/nrk/predis/zipball/7a170b3d8123c556597b4fbdb88631f99de180c2",
+            "reference": "7a170b3d8123c556597b4fbdb88631f99de180c2",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.2"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~4.0"
+        },
+        "suggest": {
+            "ext-curl": "Allows access to Webdis when paired with phpiredis",
+            "ext-phpiredis": "Allows faster serialization and deserialization of the Redis protocol"
+        },
+        "time": "2015-01-02 12:51:34",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Predis\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Daniele Alessandri",
+                "email": "suppakilla@gmail.com",
+                "homepage": "http://clorophilla.net"
+            }
+        ],
+        "description": "Flexible and feature-complete PHP client library for Redis",
+        "homepage": "http://github.com/nrk/predis",
+        "keywords": [
+            "nosql",
+            "predis",
+            "redis"
+        ]
+    },
+    {
+        "name": "psr/log",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/php-fig/log.git",
+            "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/php-fig/log/zipball/fe0936ee26643249e916849d48e3a51d5f5e278b",
+            "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b",
+            "shasum": ""
+        },
+        "time": "2012-12-21 11:40:51",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Psr\\Log\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }
+        ],
+        "description": "Common interface for logging libraries",
+        "keywords": [
+            "log",
+            "psr",
+            "psr-3"
+        ]
+    },
+    {
+        "name": "symfony/event-dispatcher",
+        "version": "v2.6.6",
+        "version_normalized": "2.6.6.0",
+        "target-dir": "Symfony/Component/EventDispatcher",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/EventDispatcher.git",
+            "reference": "70f7c8478739ad21e3deef0d977b38c77f1fb284"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/70f7c8478739ad21e3deef0d977b38c77f1fb284",
+            "reference": "70f7c8478739ad21e3deef0d977b38c77f1fb284",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "require-dev": {
+            "psr/log": "~1.0",
+            "symfony/config": "~2.0,>=2.0.5",
+            "symfony/dependency-injection": "~2.6",
+            "symfony/expression-language": "~2.6",
+            "symfony/phpunit-bridge": "~2.7",
+            "symfony/stopwatch": "~2.3"
+        },
+        "suggest": {
+            "symfony/dependency-injection": "",
+            "symfony/http-kernel": ""
+        },
+        "time": "2015-03-13 17:37:22",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.6-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Symfony\\Component\\EventDispatcher\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Symfony Community",
+                "homepage": "http://symfony.com/contributors"
+            },
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            }
+        ],
+        "description": "Symfony EventDispatcher Component",
+        "homepage": "http://symfony.com"
+    },
+    {
+        "name": "guzzle/guzzle",
+        "version": "v3.9.3",
+        "version_normalized": "3.9.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/guzzle/guzzle3.git",
+            "reference": "0645b70d953bc1c067bbc8d5bc53194706b628d9"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/guzzle/guzzle3/zipball/0645b70d953bc1c067bbc8d5bc53194706b628d9",
+            "reference": "0645b70d953bc1c067bbc8d5bc53194706b628d9",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*",
+            "php": ">=5.3.3",
+            "symfony/event-dispatcher": "~2.1"
+        },
+        "replace": {
+            "guzzle/batch": "self.version",
+            "guzzle/cache": "self.version",
+            "guzzle/common": "self.version",
+            "guzzle/http": "self.version",
+            "guzzle/inflection": "self.version",
+            "guzzle/iterator": "self.version",
+            "guzzle/log": "self.version",
+            "guzzle/parser": "self.version",
+            "guzzle/plugin": "self.version",
+            "guzzle/plugin-async": "self.version",
+            "guzzle/plugin-backoff": "self.version",
+            "guzzle/plugin-cache": "self.version",
+            "guzzle/plugin-cookie": "self.version",
+            "guzzle/plugin-curlauth": "self.version",
+            "guzzle/plugin-error-response": "self.version",
+            "guzzle/plugin-history": "self.version",
+            "guzzle/plugin-log": "self.version",
+            "guzzle/plugin-md5": "self.version",
+            "guzzle/plugin-mock": "self.version",
+            "guzzle/plugin-oauth": "self.version",
+            "guzzle/service": "self.version",
+            "guzzle/stream": "self.version"
+        },
+        "require-dev": {
+            "doctrine/cache": "~1.3",
+            "monolog/monolog": "~1.0",
+            "phpunit/phpunit": "3.7.*",
+            "psr/log": "~1.0",
+            "symfony/class-loader": "~2.1",
+            "zendframework/zend-cache": "2.*,<2.3",
+            "zendframework/zend-log": "2.*,<2.3"
+        },
+        "suggest": {
+            "guzzlehttp/guzzle": "Guzzle 5 has moved to a new package name. The package you have installed, Guzzle 3, is deprecated."
+        },
+        "time": "2015-03-18 18:23:50",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.9-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Guzzle": "src/",
+                "Guzzle\\Tests": "tests/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Michael Dowling",
+                "email": "mtdowling@gmail.com",
+                "homepage": "https://github.com/mtdowling"
+            },
+            {
+                "name": "Guzzle Community",
+                "homepage": "https://github.com/guzzle/guzzle/contributors"
+            }
+        ],
+        "description": "PHP HTTP client. This library is deprecated in favor of https://packagist.org/packages/guzzlehttp/guzzle",
+        "homepage": "http://guzzlephp.org/",
+        "keywords": [
+            "client",
+            "curl",
+            "framework",
+            "http",
+            "http client",
+            "rest",
+            "web service"
+        ]
+    },
+    {
+        "name": "rackspace/php-opencloud",
+        "version": "v1.13.0",
+        "version_normalized": "1.13.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/rackspace/php-opencloud.git",
+            "reference": "519a6d3d7760a1eafe4d5fbdd4de3d865f1fbe65"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/rackspace/php-opencloud/zipball/519a6d3d7760a1eafe4d5fbdd4de3d865f1fbe65",
+            "reference": "519a6d3d7760a1eafe4d5fbdd4de3d865f1fbe65",
+            "shasum": ""
+        },
+        "require": {
+            "guzzle/guzzle": "~3.8",
+            "php": ">=5.4",
+            "psr/log": "~1.0"
+        },
+        "require-dev": {
+            "apigen/apigen": "~4.0",
+            "fabpot/php-cs-fixer": "1.0.*@dev",
+            "jakub-onderka/php-parallel-lint": "0.*",
+            "phpunit/phpunit": "4.3.*",
+            "satooshi/php-coveralls": "0.6.*@dev"
+        },
+        "time": "2015-04-02 15:30:15",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "OpenCloud": [
+                    "lib/",
+                    "tests/"
+                ]
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache-2.0"
+        ],
+        "authors": [
+            {
+                "name": "Glen Campbell",
+                "email": "glen.campbell@rackspace.com"
+            },
+            {
+                "name": "Jamie Hannaford",
+                "email": "jamie.hannaford@rackspace.com",
+                "homepage": "https://github.com/jamiehannaford"
+            },
+            {
+                "name": "Shaunak Kashyap",
+                "email": "shaunak.kashyap@rackspace.com",
+                "homepage": "https://github.com/ycombinator"
+            }
+        ],
+        "description": "PHP SDK for Rackspace/OpenStack APIs",
+        "keywords": [
+            "Openstack",
+            "nova",
+            "opencloud",
+            "rackspace",
+            "swift"
+        ]
+    },
+    {
+        "name": "league/flysystem",
+        "version": "1.0.3",
+        "version_normalized": "1.0.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/thephpleague/flysystem.git",
+            "reference": "3c2400a99ccc3be6884d40361890010449c6b447"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/3c2400a99ccc3be6884d40361890010449c6b447",
+            "reference": "3c2400a99ccc3be6884d40361890010449c6b447",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0"
+        },
+        "require-dev": {
+            "ext-fileinfo": "*",
+            "league/phpunit-coverage-listener": "~1.1",
+            "mockery/mockery": "~0.9",
+            "phpspec/phpspec": "~2.0",
+            "phpspec/prophecy-phpunit": "~1.0",
+            "phpunit/phpunit": "~4.1",
+            "predis/predis": "~1.0",
+            "tedivm/stash": "~0.12.0"
+        },
+        "suggest": {
+            "ext-fileinfo": "Required for MimeType",
+            "league/flysystem-aws-s3-v2": "Allows you to use S3 storage with AWS SDK v2",
+            "league/flysystem-aws-s3-v3": "Allows you to use S3 storage with AWS SDK v3",
+            "league/flysystem-azure": "Allows you to use Windows Azure Blob storage",
+            "league/flysystem-cached-adapter": "Flysystem adapter decorator for metadata caching",
+            "league/flysystem-copy": "Allows you to use Copy.com storage",
+            "league/flysystem-dropbox": "Allows you to use Dropbox storage",
+            "league/flysystem-eventable-filesystem": "Allows you to use EventableFilesystem",
+            "league/flysystem-rackspace": "Allows you to use Rackspace Cloud Files",
+            "league/flysystem-sftp": "Allows you to use SFTP server storage via phpseclib",
+            "league/flysystem-webdav": "Allows you to use WebDAV storage",
+            "league/flysystem-ziparchive": "Allows you to use ZipArchive adapter",
+            "predis/predis": "Allows you to use Predis for caching"
+        },
+        "time": "2015-03-29 14:01:43",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.1-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "League\\Flysystem\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Frank de Jonge",
+                "email": "info@frenky.net"
+            }
+        ],
+        "description": "Many filesystems, one API.",
+        "keywords": [
+            "Cloud Files",
+            "WebDAV",
+            "aws",
+            "cloud",
+            "copy.com",
+            "dropbox",
+            "file systems",
+            "files",
+            "filesystem",
+            "ftp",
+            "rackspace",
+            "remote",
+            "s3",
+            "sftp",
+            "storage"
+        ]
+    },
+    {
+        "name": "league/flysystem-rackspace",
+        "version": "1.0.1",
+        "version_normalized": "1.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/thephpleague/flysystem-rackspace.git",
+            "reference": "c44e4072cf93c9e1b6ee9a125ad84c827e13adca"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/thephpleague/flysystem-rackspace/zipball/c44e4072cf93c9e1b6ee9a125ad84c827e13adca",
+            "reference": "c44e4072cf93c9e1b6ee9a125ad84c827e13adca",
+            "shasum": ""
+        },
+        "require": {
+            "league/flysystem": "~1.0",
+            "php": ">=5.4.0",
+            "rackspace/php-opencloud": "~1.12"
+        },
+        "require-dev": {
+            "mockery/mockery": "0.9.*",
+            "phpunit/phpunit": "~4.0"
+        },
+        "time": "2015-04-02 07:47:54",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "League\\Flysystem\\Rackspace\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Frank de Jonge",
+                "email": "info@frenky.net"
+            }
+        ],
+        "description": "Flysystem adapter for Rackspace"
+    },
+    {
+        "name": "aws/aws-sdk-php",
+        "version": "2.8.1",
+        "version_normalized": "2.8.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/aws/aws-sdk-php.git",
+            "reference": "9715c747724a10c0ba0e3bae741b165730cd1953"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/9715c747724a10c0ba0e3bae741b165730cd1953",
+            "reference": "9715c747724a10c0ba0e3bae741b165730cd1953",
+            "shasum": ""
+        },
+        "require": {
+            "guzzle/guzzle": "~3.7",
+            "php": ">=5.3.3"
+        },
+        "require-dev": {
+            "doctrine/cache": "~1.0",
+            "ext-openssl": "*",
+            "monolog/monolog": "~1.4",
+            "phpunit/phpunit": "~4.0",
+            "symfony/yaml": "~2.1"
+        },
+        "suggest": {
+            "doctrine/cache": "Adds support for caching of credentials and responses",
+            "ext-apc": "Allows service description opcode caching, request and response caching, and credentials caching",
+            "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
+            "monolog/monolog": "Adds support for logging HTTP requests and responses",
+            "symfony/yaml": "Eases the ability to write manifests for creating jobs in AWS Import/Export"
+        },
+        "time": "2015-04-16 22:25:42",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.7-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Aws": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache-2.0"
+        ],
+        "authors": [
+            {
+                "name": "Amazon Web Services",
+                "homepage": "http://aws.amazon.com"
+            }
+        ],
+        "description": "AWS SDK for PHP - Use Amazon Web Services in your PHP project",
+        "homepage": "http://aws.amazon.com/sdkforphp",
+        "keywords": [
+            "amazon",
+            "aws",
+            "cloud",
+            "dynamodb",
+            "ec2",
+            "glacier",
+            "s3",
+            "sdk"
+        ]
+    },
+    {
+        "name": "league/flysystem-aws-s3-v2",
+        "version": "1.0.1",
+        "version_normalized": "1.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/thephpleague/flysystem-aws-s3-v2.git",
+            "reference": "dfb35efdbd1261b114d0dcb6785b4d1c05467e0f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/thephpleague/flysystem-aws-s3-v2/zipball/dfb35efdbd1261b114d0dcb6785b4d1c05467e0f",
+            "reference": "dfb35efdbd1261b114d0dcb6785b4d1c05467e0f",
+            "shasum": ""
+        },
+        "require": {
+            "aws/aws-sdk-php": "~2.7",
+            "league/flysystem": "~1.0",
+            "php": ">=5.4.0"
+        },
+        "require-dev": {
+            "mockery/mockery": "0.9.*",
+            "phpunit/phpunit": "~4.0"
+        },
+        "time": "2015-02-10 13:16:47",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "League\\Flysystem\\AwsS3v2\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Frank de Jonge",
+                "email": "info@frenky.net"
+            }
+        ],
+        "description": "Flysystem adapter for AWS S3 SDK v2"
+    },
+    {
+        "name": "guzzlehttp/streams",
+        "version": "2.1.0",
+        "version_normalized": "2.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/guzzle/streams.git",
+            "reference": "f91b721d73f0e561410903b3b3c90a5d0e40b534"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/guzzle/streams/zipball/f91b721d73f0e561410903b3b3c90a5d0e40b534",
+            "reference": "f91b721d73f0e561410903b3b3c90a5d0e40b534",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~4.0"
+        },
+        "time": "2014-08-17 21:15:53",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "GuzzleHttp\\Stream\\": "src/"
+            },
+            "files": [
+                "src/functions.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Michael Dowling",
+                "email": "mtdowling@gmail.com",
+                "homepage": "https://github.com/mtdowling"
+            }
+        ],
+        "description": "Provides a simple abstraction over streams of data (Guzzle 4+)",
+        "homepage": "http://guzzlephp.org/",
+        "keywords": [
+            "Guzzle",
+            "stream"
+        ]
+    },
+    {
+        "name": "guzzlehttp/guzzle",
+        "version": "4.2.3",
+        "version_normalized": "4.2.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/guzzle/guzzle.git",
+            "reference": "66fd916e9f9130bc22c51450476823391cb2f67c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/66fd916e9f9130bc22c51450476823391cb2f67c",
+            "reference": "66fd916e9f9130bc22c51450476823391cb2f67c",
+            "shasum": ""
+        },
+        "require": {
+            "ext-json": "*",
+            "guzzlehttp/streams": "~2.1",
+            "php": ">=5.4.0"
+        },
+        "require-dev": {
+            "ext-curl": "*",
+            "phpunit/phpunit": "~4.0",
+            "psr/log": "~1.0"
+        },
+        "suggest": {
+            "ext-curl": "Guzzle will use specific adapters if cURL is present"
+        },
+        "time": "2014-10-05 19:29:14",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "4.2-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "GuzzleHttp\\": "src/"
+            },
+            "files": [
+                "src/functions.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Michael Dowling",
+                "email": "mtdowling@gmail.com",
+                "homepage": "https://github.com/mtdowling"
+            }
+        ],
+        "description": "Guzzle is a PHP HTTP client library and framework for building RESTful web service clients",
+        "homepage": "http://guzzlephp.org/",
+        "keywords": [
+            "client",
+            "curl",
+            "framework",
+            "http",
+            "http client",
+            "rest",
+            "web service"
+        ]
+    }
+]

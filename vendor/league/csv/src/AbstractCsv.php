@@ -4,7 +4,7 @@
 *
 * @license http://opensource.org/licenses/MIT
 * @link https://github.com/thephpleague/csv/
-* @version 7.0.1
+* @version 7.1.0
 * @package League.csv
 *
 * For the full copyright and license information, please view the LICENSE
@@ -12,6 +12,7 @@
 */
 namespace League\Csv;
 
+use CallbackFilterIterator;
 use InvalidArgumentException;
 use IteratorAggregate;
 use JsonSerializable;
@@ -80,6 +81,11 @@ abstract class AbstractCsv implements JsonSerializable, IteratorAggregate
      * Csv Ouputting Trait
      */
     use Config\Output;
+
+    /**
+     * Query Filter Trait
+     */
+    use Modifier\QueryFilter;
 
     /**
      *  Stream Filter API Trait
@@ -153,7 +159,16 @@ abstract class AbstractCsv implements JsonSerializable, IteratorAggregate
      */
     protected function getConversionIterator()
     {
-        return $this->getIterator();
+        $iterator = $this->getIterator();
+        $iterator->setFlags($this->flags|SplFileObject::READ_AHEAD|SplFileObject::SKIP_EMPTY);
+        $iterator = $this->applyBomStripping($iterator);
+        $iterator = new CallbackFilterIterator($iterator, function ($row) {
+            return is_array($row);
+        });
+        $iterator = $this->applyIteratorFilter($iterator);
+        $iterator = $this->applyIteratorSortBy($iterator);
+
+        return $this->applyIteratorInterval($iterator);
     }
 
     /**

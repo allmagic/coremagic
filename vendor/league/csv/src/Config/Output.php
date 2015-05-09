@@ -4,7 +4,7 @@
 *
 * @license http://opensource.org/licenses/MIT
 * @link https://github.com/thephpleague/csv/
-* @version 7.0.1
+* @version 7.1.0
 * @package League.csv
 *
 * For the full copyright and license information, please view the LICENSE
@@ -100,6 +100,7 @@ trait Output
     {
         if (empty($str)) {
             $this->output_bom = null;
+
             return $this;
         }
         $str = (string) $str;
@@ -187,7 +188,7 @@ trait Output
         $csv->rewind();
         $csv->setFlags(SplFileObject::READ_CSV);
         if (! empty($bom) && ! empty($input_bom)) {
-            $csv->fseek(strlen($input_bom));
+            $csv->fseek(mb_strlen($input_bom));
         }
         echo $bom;
         $res = $csv->fpassthru();

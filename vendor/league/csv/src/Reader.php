@@ -4,7 +4,7 @@
 *
 * @license http://opensource.org/licenses/MIT
 * @link https://github.com/thephpleague/csv/
-* @version 7.0.1
+* @version 7.1.0
 * @package League.csv
 *
 * For the full copyright and license information, please view the LICENSE
@@ -14,6 +14,7 @@ namespace League\Csv;
 
 use CallbackFilterIterator;
 use InvalidArgumentException;
+use Iterator;
 use League\Csv\Modifier;
 use LimitIterator;
 
@@ -26,11 +27,6 @@ use LimitIterator;
  */
 class Reader extends AbstractCsv
 {
-    /**
-     * Query Filter Trait
-     */
-    use Modifier\QueryFilter;
-
     /**
      * {@ihneritdoc}
      */
@@ -45,7 +41,9 @@ class Reader extends AbstractCsv
      */
     public function query(callable $callable = null)
     {
-        $iterator = new CallbackFilterIterator($this->getIterator(), function ($row) {
+        $iterator = $this->getIterator();
+        $iterator = $this->applyBomStripping($iterator);
+        $iterator = new CallbackFilterIterator($iterator, function ($row) {
             return is_array($row);
         });
 
@@ -53,21 +51,8 @@ class Reader extends AbstractCsv
         $iterator = $this->applyIteratorSortBy($iterator);
         $iterator = $this->applyIteratorInterval($iterator);
         if (! is_null($callable)) {
-            $iterator = new Modifier\MapIterator($iterator, $callable);
+            return new Modifier\MapIterator($iterator, $callable);
         }
-
-        return $iterator;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getConversionIterator()
-    {
-        $iterator = $this->getIterator();
-        $iterator = $this->applyIteratorFilter($iterator);
-        $iterator = $this->applyIteratorSortBy($iterator);
-        $iterator = $this->applyIteratorInterval($iterator);
 
         return $iterator;
     }
@@ -93,37 +78,6 @@ class Reader extends AbstractCsv
         }
 
         return $index;
-    }
-
-    /**
-     * Returns a single column from the CSV data
-     *
-     * The callable function will be applied to each value to be return
-     *
-     * @param int      $column_index field Index
-     * @param callable $callable     a callable function
-     *
-     * @throws \InvalidArgumentException If the column index is not a positive integer or 0
-     *
-     * @return array
-     */
-    public function fetchColumn($column_index = 0, callable $callable = null)
-    {
-        if (false === filter_var($column_index, FILTER_VALIDATE_INT, ['options' => ['min_range' => 0]])) {
-            throw new InvalidArgumentException(
-                'the column index must be a positive integer or 0'
-            );
-        }
-
-        $iterator = $this->query($callable);
-        $iterator = new CallbackFilterIterator($iterator, function ($row) use ($column_index) {
-            return array_key_exists($column_index, $row);
-        });
-        $iterator = new Modifier\MapIterator($iterator, function ($row) use ($column_index) {
-            return $row[$column_index];
-        });
-
-        return iterator_to_array($iterator, false);
     }
 
     /**
@@ -156,7 +110,50 @@ class Reader extends AbstractCsv
      */
     public function fetchAll(callable $callable = null)
     {
-        return iterator_to_array($this->query($callable), false);
+        return $this->execute($this->query($callable));
+    }
+
+    /**
+     * Transform the Iterator into an array
+     *
+     * @param Iterator $iterator
+     *
+     * @return array
+     */
+    protected function execute(Iterator $iterator)
+    {
+        return iterator_to_array($iterator, false);
+    }
+
+    /**
+     * Returns a single column from the CSV data
+     *
+     * The callable function will be applied to each value to be return
+     *
+     * @param int      $column_index field Index
+     * @param callable $callable     a callable function
+     *
+     * @throws \InvalidArgumentException If the column index is not a positive integer or 0
+     *
+     * @return array
+     */
+    public function fetchColumn($column_index = 0, callable $callable = null)
+    {
+        if (false === filter_var($column_index, FILTER_VALIDATE_INT, ['options' => ['min_range' => 0]])) {
+            throw new InvalidArgumentException(
+                'the column index must be a positive integer or 0'
+            );
+        }
+
+        $iterator = $this->query($callable);
+        $iterator = new CallbackFilterIterator($iterator, function ($row) use ($column_index) {
+            return array_key_exists($column_index, $row);
+        });
+        $iterator = new Modifier\MapIterator($iterator, function ($row) use ($column_index) {
+            return $row[$column_index];
+        });
+
+        return $this->execute($iterator);
     }
 
     /**
@@ -167,6 +164,7 @@ class Reader extends AbstractCsv
      *
      * @param array|int $offset_or_keys the name for each key member OR the row Index to be
      *                                  used as the associated named keys
+     *
      * @param callable  $callable       a callable function
      *
      * @throws \InvalidArgumentException If the submitted keys are invalid
@@ -175,7 +173,13 @@ class Reader extends AbstractCsv
      */
     public function fetchAssoc($offset_or_keys = 0, callable $callable = null)
     {
-        $keys       = $this->getAssocKeys($offset_or_keys);
+        $keys = $this->getAssocKeys($offset_or_keys);
+        $this->assertValidAssocKeys($keys);
+        if (! is_array($offset_or_keys)) {
+            $this->addFilter(function ($row, $rowIndex) use ($offset_or_keys) {
+                return is_array($row) && $rowIndex != $offset_or_keys;
+            });
+        }
         $keys_count = count($keys);
         $iterator   = $this->query($callable);
         $iterator   = new Modifier\MapIterator($iterator, function (array $row) use ($keys, $keys_count) {
@@ -186,7 +190,7 @@ class Reader extends AbstractCsv
             return array_combine($keys, $row);
         });
 
-        return iterator_to_array($iterator, false);
+        return $this->execute($iterator);
     }
 
     /**
@@ -201,20 +205,17 @@ class Reader extends AbstractCsv
      */
     protected function getAssocKeys($offset_or_keys)
     {
-        $res = $offset_or_keys;
-        if (! is_array($offset_or_keys)) {
-            $res = $this->getRow($offset_or_keys);
-            $this->addFilter(function ($row, $rowIndex) use ($offset_or_keys) {
-                return is_array($row) && $rowIndex != $offset_or_keys;
-            });
+        if (is_array($offset_or_keys) && ! empty($offset_or_keys)) {
+            return $offset_or_keys;
         }
-        if (! $this->isValidAssocKeys($res)) {
+
+        if (false === filter_var($offset_or_keys, FILTER_VALIDATE_INT, ['options' => ['min_range' => 0]])) {
             throw new InvalidArgumentException(
-                'Use a flat non empty array with unique string values'
+                'the row index must be a positive integer, 0 or a non empty array'
             );
         }
 
-        return $res;
+        return $this->getRow($offset_or_keys);
     }
 
     /**
@@ -228,15 +229,15 @@ class Reader extends AbstractCsv
      */
     protected function getRow($offset)
     {
-        if (false === filter_var($offset, FILTER_VALIDATE_INT, ['options' => ['min_range' => 0]])) {
-            throw new InvalidArgumentException('the row index must be a positive integer or 0');
-        }
-
         $iterator = new LimitIterator($this->getIterator(), $offset, 1);
         $iterator->rewind();
         $res = $iterator->current();
-        if (is_null($res)) {
-            throw new InvalidArgumentException('the specified row does not exist');
+        if (empty($res)) {
+            throw new InvalidArgumentException('the specified row does not exist or is empty');
+        }
+
+        if (0 == $offset && $this->isBomStrippable()) {
+            $res[0] = mb_substr($res[0], mb_strlen($this->getInputBom()));
         }
 
         return $res;
@@ -247,12 +248,16 @@ class Reader extends AbstractCsv
      *
      * @param array $keys
      *
-     * @return boolean
+     * @throws \InvalidArgumentException If the submitted array fails the assertion
      */
-    protected function isValidAssocKeys(array $keys)
+    protected function assertValidAssocKeys(array $keys)
     {
-        return count($keys) && $keys === array_unique(array_filter($keys, function ($value) {
+        $test = array_unique(array_filter($keys, function ($value) {
             return is_scalar($value) || (is_object($value) && method_exists($value, '__toString'));
         }));
+
+        if ($keys !== $test) {
+            throw new InvalidArgumentException('Use a flat array with unique string values');
+        }
     }
 }

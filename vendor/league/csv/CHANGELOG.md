@@ -1,6 +1,19 @@
 #Changelog
 All Notable changes to `League\Csv` will be documented in this file
 
+## 7.1.0 - 2015-05-06
+
+### Added
+
+- `stripBOM` query filtering method to ease removing the BOM sequence when querying the CSV document.
+- All query filters are now accessible in the `Writer` class for conversion methods.
+
+### Fixed
+
+- Internal code has been updated to take into account [bug fix #68479](http://bugs.php.net/68479)
+- `setFlags` on conversion methods SplFileObject default flags are `SplFileObject::READ_AHEAD|SplFileObject::SKIP_EMPTY`
+- `insertOne` now takes into account the escape character when modified after the first insert.
+
 ## 7.0.1 - 2015-03-23
 
 ### Fixed
