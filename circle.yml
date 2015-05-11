@@ -17,7 +17,7 @@ deployment:
   production:
     branch: master
     commands:
-      - composer update
+      - composer update --no-interaction
       - shipit staging deploy
 
 test:
