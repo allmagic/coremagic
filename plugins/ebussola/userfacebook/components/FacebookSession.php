@@ -1,5 +1,6 @@
 <?php namespace Ebussola\Userfacebook\Components;
 
+use Cms\Classes\Page;
 use eBussola\Userfacebook\Models\Settings;
 use eBussola\Userfacebook\Models\SocialIds;
 use Facebook\FacebookJavaScriptLoginHelper;
@@ -15,6 +16,8 @@ class FacebookSession extends Session
 {
 
     public $appId;
+    public $redirectSignup;
+    public $redirectLogin;
 
     public function componentDetails()
     {
@@ -24,50 +27,87 @@ class FacebookSession extends Session
         ];
     }
 
+    public function defineProperties()
+    {
+        return array_merge(parent::defineProperties(), [
+            'redirectSignup' => [
+                'title'       => 'ebussola.userfacebook::lang.session.redirect_signup_title',
+                'description' => 'ebussola.userfacebook::lang.session.redirect_signup_desc',
+                'type'        => 'dropdown',
+                'default'     => ''
+            ],
+            'redirectLogin' => [
+                'title'       => 'ebussola.userfacebook::lang.session.redirect_login_title',
+                'description' => 'ebussola.userfacebook::lang.session.redirect_login_desc',
+                'type'        => 'dropdown',
+                'default'     => ''
+            ]
+        ]);
+    }
+
+    public function getRedirectSignupOptions()
+    {
+        return [''=>'- none -'] + Page::sortBy('baseFileName')->lists('baseFileName', 'baseFileName');
+    }
+
+    public function getRedirectLoginOptions()
+    {
+        return [''=>'- none -'] + Page::sortBy('baseFileName')->lists('baseFileName', 'baseFileName');
+    }
+
     /**
      * Executed when this component is bound to a page or layout.
      */
     public function onRun() {
         $this->appId = Settings::get('app_id');
+        $this->redirectSignup = $this->controller->pageUrl($this->property('redirectSignup'));
+        $this->redirectLogin = $this->controller->pageUrl($this->property('redirectLogin'));
 
         return parent::onRun();
     }
 
     public function onLoginWithFacebook() {
-        $fb_js = new FacebookJavaScriptLoginHelper();
-        $response = (new FacebookRequest($fb_js->getSession(), 'GET', '/me'))->execute();
+        $isSignup = false;
+        $fbJs = new FacebookJavaScriptLoginHelper();
+        $response = (new FacebookRequest($fbJs->getSession(), 'GET', '/me'))->execute();
         /** @var GraphObject $user */
-        $fb_user = $response->getGraphObject();
+        $fbUser = $response->getGraphObject();
 
-        $social_ids = SocialIds::where('facebook_id', $fb_user->getProperty('id'))->first();
-        if (!$social_ids) {
+        $socialIds = SocialIds::where('facebook_id', $fbUser->getProperty('id'))->first();
+        if (!$socialIds) {
 
-	        $user = User::where( 'email', $fb_user->getProperty( 'email' ) )->first();
+	        $user = User::where( 'email', $fbUser->getProperty( 'email' ) )->first();
 	        if (!$user) {
+                $isSignup = true;
 		        $password = uniqid();
 		        $user = Auth::register([
-			        'name' => $fb_user->getProperty('first_name'),
-                    'surname' => $fb_user->getProperty('last_name'),
-			        'email' => $fb_user->getProperty('email'),
-			        'username' => $fb_user->getProperty('email'),
+			        'name' => $fbUser->getProperty('first_name'),
+                    'surname' => $fbUser->getProperty('last_name'),
+			        'email' => $fbUser->getProperty('email'),
+			        'username' => $fbUser->getProperty('email'),
 			        'password' => $password,
 			        'password_confirmation' => $password
 		        ], true);
 	        }
 
-            $social_ids = new SocialIds();
-            $social_ids->user_id = $user->id;
-            $social_ids->facebook_id = $fb_user->getProperty('id');
-            $social_ids->save();
+            $socialIds = new SocialIds();
+            $socialIds->user_id = $user->id;
+            $socialIds->facebook_id = $fbUser->getProperty('id');
+            $socialIds->save();
 
         } else {
-            $user = $social_ids->user;
+            $user = $socialIds->user;
         }
 
         Auth::login($user, true);
 
-        $url = post('redirect', Request::fullUrl());
-        return Redirect::to($url);
+        if (post('use_redirect', true)) {
+            if ($isSignup) {
+                return Redirect::to(post('redirect_signup', Request::fullUrl()));
+            } else {
+                return Redirect::to(post('redirect_login', Request::fullUrl()));
+            }
+        }
     }
 
 }

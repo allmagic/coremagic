@@ -49,12 +49,6 @@ class MySqlPlatform extends AbstractPlatform
     /**
      * Adds MySQL-specific LIMIT clause to the query
      * 18446744073709551615 is 2^64-1 maximum of unsigned BIGINT the biggest limit possible
-     *
-     * @param string  $query
-     * @param integer $limit
-     * @param integer $offset
-     *
-     * @return string
      */
     protected function doModifyLimitQuery($query, $limit, $offset)
     {
@@ -352,9 +346,6 @@ class MySqlPlatform extends AbstractPlatform
         return true;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getListTablesSQL()
     {
         return "SHOW FULL TABLES WHERE Table_type = 'BASE TABLE'";
@@ -634,9 +625,6 @@ class MySqlPlatform extends AbstractPlatform
 
                         $sql[] = 'ALTER TABLE ' . $table . ' MODIFY ' .
                             $this->getColumnDeclarationSQL($column->getQuotedName($this), $column->toArray());
-
-                        // original autoincrement information might be needed later on by other parts of the table alteration
-                        $column->setAutoincrement(true);
                     }
                 }
             }
@@ -681,46 +669,9 @@ class MySqlPlatform extends AbstractPlatform
 
         $sql = array_merge(
             $sql,
-            $this->getPreAlterTableAlterIndexForeignKeySQL($diff),
             parent::getPreAlterTableIndexForeignKeySQL($diff),
             $this->getPreAlterTableRenameIndexForeignKeySQL($diff)
         );
-
-        return $sql;
-    }
-
-    /**
-     * @param TableDiff $diff The table diff to gather the SQL for.
-     *
-     * @return array
-     */
-    private function getPreAlterTableAlterIndexForeignKeySQL(TableDiff $diff)
-    {
-        $sql = array();
-        $table = $diff->getName($this)->getQuotedName($this);
-
-        foreach ($diff->changedIndexes as $changedIndex) {
-            // Changed primary key
-            if ($changedIndex->isPrimary() && $diff->fromTable instanceof Table) {
-                foreach ($diff->fromTable->getPrimaryKeyColumns() as $columnName) {
-                    $column = $diff->fromTable->getColumn($columnName);
-
-                    // Check if an autoincrement column was dropped from the primary key.
-                    if ($column->getAutoincrement() && ! in_array($columnName, $changedIndex->getColumns())) {
-                        // The autoincrement attribute needs to be removed from the dropped column
-                        // before we can drop and recreate the primary key.
-                        $column->setAutoincrement(false);
-
-                        $sql[] = 'ALTER TABLE ' . $table . ' MODIFY ' .
-                            $this->getColumnDeclarationSQL($column->getQuotedName($this), $column->toArray());
-
-                        // Restore the autoincrement attribute as it might be needed later on
-                        // by other parts of the table alteration.
-                        $column->setAutoincrement(true);
-                    }
-                }
-            }
-        }
 
         return $sql;
     }
@@ -854,34 +805,6 @@ class MySqlPlatform extends AbstractPlatform
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function getFloatDeclarationSQL(array $field)
-    {
-        return 'DOUBLE PRECISION' . $this->getUnsignedDeclaration($field);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getDecimalTypeDeclarationSQL(array $columnDef)
-    {
-        return parent::getDecimalTypeDeclarationSQL($columnDef) . $this->getUnsignedDeclaration($columnDef);
-    }
-
-    /**
-     * Get unsigned declaration for a column.
-     *
-     * @param array $columnDef
-     *
-     * @return string
-     */
-    private function getUnsignedDeclaration(array $columnDef)
-    {
-        return ! empty($columnDef['unsigned']) ? ' UNSIGNED' : '';
-    }
-
-    /**
      * {@inheritDoc}
      */
     protected function _getCommonIntegerTypeDeclarationSQL(array $columnDef)
@@ -890,8 +813,9 @@ class MySqlPlatform extends AbstractPlatform
         if ( ! empty($columnDef['autoincrement'])) {
             $autoinc = ' AUTO_INCREMENT';
         }
+        $unsigned = (isset($columnDef['unsigned']) && $columnDef['unsigned']) ? ' UNSIGNED' : '';
 
-        return $this->getUnsignedDeclaration($columnDef) . $autoinc;
+        return $unsigned . $autoinc;
     }
 
     /**

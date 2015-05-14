@@ -11,7 +11,15 @@
                 accessToken = response.authResponse.accessToken;
                 status = response.status;
 
-                $.request("{{ __SELF__~'::onLoginWithFacebook' }}");
+                var redirectSignup = "{{ __SELF__.redirectSignup }}";
+                var redirectLogin = "{{ __SELF__.redirectLogin }}";
+                $.request("{{ __SELF__~'::onLoginWithFacebook' }}", {
+                    data: {
+                        use_redirect: true,
+                        redirect_signup: redirectSignup,
+                        redirect_login: redirectLogin
+                    }
+                });
 
             } else if (response.status === 'not_authorized') {
                 // the user is logged in to Facebook,

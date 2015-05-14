@@ -30,3 +30,15 @@ Of course all snippets can be customized, they are used just to faster the devel
     {% else %}
         {% component 'facebookSession::login-button' %}
     {% endif %}
+    
+    
+## FacebookSession Component API
+
+### onLoginWithFacebook
+
+#### Redirect
+
+You can use _use_redirect_ property passed by POST to enable or disable the redirect.
+
+Use _redirect_signup_ to specify the address to redirect the user when he is signing up. Or _redirect_login_ when he 
+is loggin in.

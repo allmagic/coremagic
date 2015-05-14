@@ -1,0 +1,52 @@
+[
+    {
+        "name": "owl/tagbox",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/october-widgets/tagbox.git",
+            "reference": "d3a3351a4fb6f5b27b0cc3bce434e684d67ac7ed"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/october-widgets/tagbox/zipball/d3a3351a4fb6f5b27b0cc3bce434e684d67ac7ed",
+            "reference": "d3a3351a4fb6f5b27b0cc3bce434e684d67ac7ed",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0"
+        },
+        "time": "2015-02-17 10:06:07",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "Owl\\FormWidgets\\Tagbox\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Scott Bedard",
+                "email": "scottbedard90@gmail.com"
+            }
+        ],
+        "description": "Tag form widget for OctoberCMS.",
+        "homepage": "http://github.com/october-widgets",
+        "keywords": [
+            "october",
+            "october cms",
+            "owl",
+            "tagbox"
+        ]
+    }
+]

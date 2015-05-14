@@ -19,5 +19,13 @@ return [
         'settings' => [
             'facebook' => 'Manager facebook token'
         ]
+    ],
+
+    'session' => [
+        'redirect_signup_title' => 'Redirect to (after signup)',
+        'redirect_signup_desc' => 'Page to redirect after the user signed up',
+
+        'redirect_login_title' => 'Redirect to (after login)',
+        'redirect_login_desc' => 'Page to redirect after the user login'
     ]
 ];
