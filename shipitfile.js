@@ -22,17 +22,24 @@ module.exports = function (shipit) {
 
   shipit.on('published', function () {
     setTimeout(function() {
-      shipit.remote('cp /root/coremagic_config/* /usr/share/nginx/html/shipit/current/config/');
-      shipit.remote('chown -R www-data:www-data /usr/share/nginx/html/shipit');
+      shipit.remote('cp /root/coremagic_config/* /usr/share/nginx/html/shipit/current/config/')
+        .then(function() {
+          shipit.remote('chown -R www-data:www-data /usr/share/nginx/html/shipit');
+        }).then(function() {
+          shipit.remote('php /usr/share/nginx/html/shipit/current/artisan october:update');
+        });
+
     }, 2000);
   });
 
   shipit.on('cleaned', function () {
     setTimeout(function() {
-      shipit.remote('php /usr/share/nginx/html/shipit/current/artisan clear-compiled');
-      shipit.remote('php /usr/share/nginx/html/shipit/current/artisan route:clear');
-      shipit.remote('php /usr/share/nginx/html/shipit/current/artisan cache:clear');
-      shipit.remote('php /usr/share/nginx/html/shipit/current/artisan optimize --force');
+      shipit.remote('php /usr/share/nginx/html/shipit/current/artisan clear-compiled')
+          .then(function() {
+            shipit.remote('php /usr/share/nginx/html/shipit/current/artisan route:clear');
+            shipit.remote('php /usr/share/nginx/html/shipit/current/artisan cache:clear');
+            shipit.remote('php /usr/share/nginx/html/shipit/current/artisan optimize --force');
+          });
     }, 2000);
   });
 
