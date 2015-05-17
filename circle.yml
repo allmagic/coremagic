@@ -4,8 +4,7 @@ machine:
   environment:
     MY_PATH: '/home/ubuntu/nvm/v0.10.33/lib/node_modules'
   services:
-    - mysql
-    - redis
+    - echo 'No service added'.
 
 dependencies:
   override:
