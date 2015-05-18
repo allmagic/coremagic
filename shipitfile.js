@@ -27,7 +27,7 @@ module.exports = function (shipit) {
                 .then(function () {
                     shipit.remote('chown -R www-data:www-data /usr/share/nginx/html/shipit');
                 }).then(function () {
-                    shipit.remote('php /usr/share/nginx/html/shipit/current/artisan october:update');
+                    //shipit.remote('php /usr/share/nginx/html/shipit/current/artisan october:update');
                 });
 
         }, 2000);
